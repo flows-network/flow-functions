@@ -5,17 +5,22 @@ edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib_1]
+name = "issue_notifier"
+path = "src/issue_notifier.rs"
+crate-type =["cdylib"]
+
 [lib]
-name = "github_to_slack"
-path = "src/github_to_slack.rs"
+name = "star_thanks_by_sendgrid"
+path = "src/star_thanks_by_sendgrid.rs"
 crate-type =["cdylib"]
 
-[lib2]
-name = "star_to_mail"
-path = "src/star_to_mail.rs"
+[lib_2]
+name = "star_thanks_by_gmail"
+path = "src/star_thanks_by_gmail.rs"
 crate-type =["cdylib"]
 
-[lib3]
+[lib_3]
 name = "calculator"
 path = "src/calculator.rs"
 crate-type =["cdylib"]
