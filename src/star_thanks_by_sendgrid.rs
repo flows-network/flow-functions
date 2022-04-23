@@ -26,7 +26,7 @@ Howdy {},
 Welcome to the {} community! Thank you so much for starring our repository. We are very excited to have you here.
 
 Look forward to your contributions,
-Maintainers at repository https://github.com/{}"#, sender, repo, repo);
+Maintainers at repository {}"#, sender, repo, repo);
 						} else {
 							subject = " 😿 Sorry to lose you".to_string();
 							content = format!(r#"
@@ -35,7 +35,7 @@ Hi {},
 Sorry to see you go! We value your feedback and suggestions. Please do let us know how we might improve the repository {} (just reply to this email). We wish to see your around in the community!
 
 Best Regards,
-Maintainers at repository https://github.com/{}"#, sender, repo, repo);
+Maintainers at repository {}"#, sender, repo, repo);
 						}
 						return json!({
 							"to_email": email.as_str().unwrap(),
