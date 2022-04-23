@@ -19,17 +19,23 @@ pub fn run(s: String) -> String {
 						let mut content: String;
 
 						if action == "created" {
-							subject = "Thanks for your star!".to_string();
-							content = format!(r#"Hi {}, we have received your star to our repository {}.
-									We are so appreciative and wish you have more fun with open source.
-									
-									Best regards"#, sender, repo);
+							subject = " 😉 Thank you for your star!".to_string();
+							content = format!(r#"
+Howdy {}, 
+								
+Welcome to the {} community! Thank you so much for starring our repository. We are very excited to have you here.
+
+Look forward to your contributions,
+Maintainers at repository https://github.com/{}"#, sender, repo, repo);
 						} else {
-							subject = "Sorry to lose you".to_string();
-							content = format!(r#"Hi {}, we are very disappointed that you have unstarred our repository {}.
-									Hope you can give us more advice to make us getting better.
-									
-									Best regards"#, sender, repo);
+							subject = " 😿 Sorry to lose you".to_string();
+							content = format!(r#"
+Hi {},
+			
+Sorry to see you go! We value your feedback and suggestions. Please do let us know how we might improve the repository {} (just reply to this email). We wish to see your around in the community!
+
+Best Regards,
+Maintainers at repository https://github.com/{}"#, sender, repo, repo);
 						}
 						return json!({
 							"to_email": email.as_str().unwrap(),
