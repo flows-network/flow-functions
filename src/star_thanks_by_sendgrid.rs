@@ -21,20 +21,20 @@ pub fn run(s: String) -> String {
 						if action == "created" {
 							subject = " 😉 Thank you for your star!".to_string();
 							content = format!(r#"
-Howdy {}, 
+Howdy {},<br/>
 								
-Welcome to the {} community! Thank you so much for starring our repository. We are very excited to have you here.
+Welcome to the {} community! Thank you so much for starring our repository. We are very excited to have you here.<br/>
 
-Look forward to your contributions,
+Look forward to your contributions,<br/>
 Maintainers at repository {}"#, sender, repo, repo);
 						} else {
 							subject = " 😿 Sorry to lose you".to_string();
 							content = format!(r#"
-Hi {},
+Hi {},<br/>
 			
-Sorry to see you go! We value your feedback and suggestions. Please do let us know how we might improve the repository {} (just reply to this email). We wish to see your around in the community!
+Sorry to see you go! We value your feedback and suggestions. Please do let us know how we might improve the repository {} (just reply to this email). We wish to see your around in the community!<br/>
 
-Best Regards,
+Best Regards,<br/>
 Maintainers at repository {}"#, sender, repo, repo);
 						}
 						return json!({
