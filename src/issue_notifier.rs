@@ -1,3 +1,4 @@
+#[allow(unused_imports)]
 use wasmedge_bindgen::*;
 use wasmedge_bindgen_macro::*;
 use serde_json::{Result, Value};
@@ -56,7 +57,7 @@ pub fn run(s: String) -> String {
 			}
 		}
 		if event_type != "" {
-			if body.contains("@alabulei1") {
+			if body.contains("@darumadocker") {
 				return format!("{}\n{}\n{}", event_type, body.replace("\\r\\n", "\n"), html_url);
 			}
 		}
