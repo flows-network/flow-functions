@@ -4,15 +4,19 @@ version = "0.1.0"
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[lib_3]
-name = "issue_notifier"
-path = "src/issue_notifier.rs"
+[lib_5]
+name = "star_messager"
+path = "src/star_messager.rs"
 crate-type =["cdylib"]
 
 [lib_4]
 name = "star_thanks_by_sendgrid"
 path = "src/star_thanks_by_sendgrid.rs"
+crate-type =["cdylib"]
+
+[lib_3]
+name = "issue_notifier"
+path = "src/issue_notifier.rs"
 crate-type =["cdylib"]
 
 [lib_2]
@@ -28,7 +32,7 @@ crate-type =["cdylib"]
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-wasmedge-bindgen = "0.1.0"
-wasmedge-bindgen-macro = "0.1.0"
+wasmedge-bindgen = "0.4.0"
+wasmedge-bindgen-macro = "0.4.0"
 meval = "0.2.0"
 text-to-png = "0.2"
