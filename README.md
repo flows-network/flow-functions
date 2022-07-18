@@ -10,10 +10,10 @@
 
 ## Build
 
-* Install `wasm-pack` if you not
+* Install WASM target if you not
 
   ```shell
-  rustup install wasm-pack
+  rustup target add wasm32-wasi
   ```
 
 * Build packeage
