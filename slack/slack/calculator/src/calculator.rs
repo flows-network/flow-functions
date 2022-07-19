@@ -1,15 +1,15 @@
+use meval;
 #[allow(unused_imports)]
 use wasmedge_bindgen::*;
 use wasmedge_bindgen_macro::*;
-use meval;
 
 use text_to_png::TextRenderer;
 
 #[wasmedge_bindgen]
 pub fn _run(exp: String) -> String {
-	let r = meval::eval_str(&exp).unwrap();
-	let e = format!("{} = {}", exp, r);
-	return e;
+    let r = meval::eval_str(&exp).unwrap();
+    let e = format!("{} = {}", exp, r);
+    return e;
 }
 
 // #[wasmedge_bindgen]
