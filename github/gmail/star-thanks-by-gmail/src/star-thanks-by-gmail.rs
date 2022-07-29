@@ -16,13 +16,13 @@ pub fn run(s: String) -> String {
                         if action == "created" {
                             return format!(
                                 r#"From: me
-	To: {}
-	Subject: Thanks for your star!
+To: {}
+Subject: Thanks for your star!
 
-	Hi {}, we have received your star to our repository {}.
-	We are so appreciative and wish you have more fun with open source.
+Hi {}, we have received your star to our repository {}.
+We are so appreciative and wish you have more fun with open source.
 
-	Best regards"#,
+Best regards"#,
                                 email.as_str().unwrap(),
                                 pl["sender"]["login"].as_str().unwrap(),
                                 pl["repository"]["full_name"].as_str().unwrap()
@@ -30,13 +30,13 @@ pub fn run(s: String) -> String {
                         } else {
                             return format!(
                                 r#"From: me
-	To: {}
-	Subject: Sorry to lose you
+To: {}
+Subject: Sorry to lose you
 
-	Hi {}, we are very disappointed that you have unstarred our repository {}.
-	Hope you can give us more advice to make us getting better.
+Hi {}, we are very disappointed that you have unstarred our repository {}.
+Hope you can give us more advice to make us getting better.
 
-	Best regards"#,
+Best regards"#,
                                 email.as_str().unwrap(),
                                 pl["sender"]["login"].as_str().unwrap(),
                                 pl["repository"]["full_name"].as_str().unwrap()
