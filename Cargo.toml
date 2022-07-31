@@ -3,6 +3,7 @@ members = [
     "github/slack/star-messager",
     "github/slack/issue-notifier",
     "github/gmail/star-thanks-by-gmail",
+    "github/discord/issue-to-discord",
     "github/sendgrid/star-thanks-by-sendgrid",
     "slack/slack/calculator"
 ]
