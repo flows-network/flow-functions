@@ -5,5 +5,6 @@ members = [
     "github/gmail/star-thanks-by-gmail",
     "github/discord/issue-to-discord",
     "github/sendgrid/star-thanks-by-sendgrid",
-    "slack/slack/calculator"
+    "github/notion/assign-notifier",
+    "slack/slack/calculator",
 ]

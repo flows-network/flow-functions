@@ -7,6 +7,7 @@
 | [star-thanks-by-gmail](github/gmail/star-thanks-by-gmail/) | GitHub | Gmail | Send thank you message via Gmail when GitHub repo gets star |
 | [star-thanks-by-sendgrid](github/sendgrid/star-thanks-by-sendgrid/) | GitHub | Sendgrid | Send thank you message via Sendgrid when GitHub repo gets star |
 | [calculator](slack/slack/calculator/) | Slack | Slcak | Compute the expressions on the Slack |
+| [assign-notifier](github/notion/assign-notifier/) | GitHub | Notion | Create a task on Notion when the GitHub issue is assigned |
 
 ## Build
 
