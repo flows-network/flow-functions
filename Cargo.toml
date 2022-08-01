@@ -6,4 +6,5 @@ members = [
     "github/sendgrid/star-thanks-by-sendgrid",
     "github/notion/assign-notifier",
     "slack/slack/calculator",
+    "slack/slack/reverse",
 ]
