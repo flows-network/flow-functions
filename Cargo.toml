@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "github/slack/getting-started",
     "github/slack/star-messager",
     "github/slack/issue-notifier",
     "github/gmail/star-thanks-by-gmail",
