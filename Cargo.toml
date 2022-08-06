@@ -1,10 +1,10 @@
 [workspace]
 members = [
-    "github/slack/getting-started",
-    "github/slack/star-messager",
-    "github/slack/issue-notifier",
-    "github/gmail/star-thanks-by-gmail",
-    "github/sendgrid/star-thanks-by-sendgrid",
-    "github/notion/assign-notifier",
-    "slack/slack/calculator",
+    "github/slack/getting-started/rust",
+    "github/slack/star-messager/rust",
+    "github/slack/issue-notifier/rust",
+    "github/gmail/star-thanks-by-gmail/rust",
+    "github/sendgrid/star-thanks-by-sendgrid/rust",
+    "github/notion/assign-notifier/rust",
+    "slack/slack/calculator/rust",
 ]
