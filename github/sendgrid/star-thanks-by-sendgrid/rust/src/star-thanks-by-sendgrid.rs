@@ -8,16 +8,16 @@ pub fn run(s: String) -> String {
     let result: Result<Value> = serde_json::from_str(s.as_str());
 
     if let Ok(pl) = result {
-        match pl.get("sender_email") {
-            Some(email) => {
+        match &pl["sender"]["email"] {
+            Value::String(email) => {
                 // ensure event is star or unstar
                 if pl.get("starred_at").is_some() {
                     if let Some(action) = pl["action"].as_str() {
                         let sender = pl["sender"]["login"].as_str().unwrap();
                         let repo = pl["repository"]["full_name"].as_str().unwrap();
 
-                        let mut subject: String;
-                        let mut content: String;
+                        let subject: String;
+                        let content: String;
 
                         if action == "created" {
                             subject = " 😉 Thank you for your star!".to_string();
@@ -44,16 +44,29 @@ Maintainers at repository {}"#,
                                 sender, repo, repo
                             );
                         }
-                        return json!({
-                            "to_email": email.as_str().unwrap(),
+                        return json!([{
+                            "personalizations": [
+                                {
+                                    "to": [
+                                        {
+                                            "email": email
+                                        }
+                                    ]
+                                }
+                            ],
                             "subject": subject,
-                            "content": content
-                        })
+                            "content": [
+                                {
+                                    "type": "text/html",
+                                    "value": content
+                                }
+                            ]
+                        }])
                         .to_string();
                     }
                 }
             }
-            None => {
+            _ => {
                 return "".to_string();
             }
         }
