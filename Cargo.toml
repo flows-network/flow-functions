@@ -3,10 +3,17 @@ members = [
     "github/slack/getting-started/rust",
     "github/slack/star-messager/rust",
     "github/slack/issue-notifier/rust",
-    "github/gmail/star-thanks-by-gmail/rust",
-    "github/sendgrid/star-thanks-by-sendgrid/rust",
-    "github/notion/assign-notifier/rust",
-    "slack/slack/calculator/rust",
     "github/slack/commit-syncer/rust",
+
+    "github/gmail/star-thanks-by-gmail/rust",
+
+    "github/sendgrid/star-thanks-by-sendgrid/rust",
+
+    "github/notion/assign-notifier/rust",
+
+    "github/twilio/star-messenger/rust",
+
+
+    "slack/slack/calculator/rust",
     "slack/slack/reverse/rust",
 ]
