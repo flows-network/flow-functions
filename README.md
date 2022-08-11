@@ -1,7 +1,8 @@
-# Reactor WebAssmbly Functions
+# WasmHaiku Flow Functions
 
 | Package Name | Inbound | Outbound | Description |
 | ---- | ------- | -------- | ----------- |
+| [getting-started](github/slack/getting-started/) | GitHub | Slack | Send a message to Slack when new comments are added to GitHub issues |
 | [star-messager](github/slack/star-messager/) | GitHub | Slack | Send a message to Slack when the GitHub repo gets every 10 stars |
 | [issue-notifier](github/slack/issue-notifier/) | GitHub | Slack | Send a message to Slack when the GitHub issue is opened, edited, assigned  |
 | [commit-syncer](github/slack/commit-syncer/) | GitHub | Slack | Send a message to Slack when the GitHub commits is pushed |
@@ -10,7 +11,7 @@
 | [calculator](slack/slack/calculator/) | Slack | Slcak | Compute the expressions on the Slack |
 | [assign-notifier](github/notion/assign-notifier/) | GitHub | Notion | Create a task on Notion when the GitHub issue is assigned |
 
-## Build
+## Build for Rust functions
 
 * Install WASM target if you not
 
