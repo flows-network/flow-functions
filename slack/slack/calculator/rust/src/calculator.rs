@@ -31,14 +31,14 @@ pub fn run(exp: String) -> Result<(String, String, String, Vec<u8>), String> {
 }
 
 #[wasmedge_bindgen]
-pub fn run_file_1(exp: String, pic: Vec<u8>) -> (String, String, String, Vec<u8>) {
+pub fn run_file_1(
+    exp: String,
+    filename: String,
+    mime_type: String,
+    pic: Vec<u8>,
+) -> (String, String, String, Vec<u8>) {
     let r = meval::eval_str(&exp).unwrap();
-    return (
-        format!("{} = {}", exp, r),
-        "1.png".to_string(),
-        "image/png".to_string(),
-        pic,
-    );
+    return (format!("{} = {}", exp, r), filename, mime_type, pic);
 }
 
 #[wasmedge_bindgen]
