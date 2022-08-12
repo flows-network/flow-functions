@@ -5,12 +5,10 @@ use wasmedge_bindgen_macro::*;
 
 #[wasmedge_bindgen]
 pub fn run(s: String) -> Result<String, String> {
-    let conf = include_str!("./conf.json");
-
-    let value = serde_json::from_str::<Value>(conf).unwrap();
-
-    let from = value.get("From").unwrap();
-    let to = value.get("To").unwrap();
+    // This parameter determines the destination phone number for your SMS message.
+    // see: https://www.twilio.com/docs/sms/send-messages#to
+    // example:
+    let to = "+8612345678901";
 
     let res: Value = match serde_json::from_str(s.as_str()) {
         Ok(s) => s,
@@ -44,7 +42,6 @@ pub fn run(s: String) -> Result<String, String> {
         );
         Ok(serde_json::json!({
             "Body": body,
-            "From": from,
             "To": to,
         })
         .to_string())
