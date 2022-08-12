@@ -10,6 +10,8 @@
 | [star-thanks-by-sendgrid](github/sendgrid/star-thanks-by-sendgrid/) | GitHub | Sendgrid | Send thank you message via Sendgrid when GitHub repo gets star |
 | [calculator](slack/slack/calculator/) | Slack | Slcak | Compute the expressions on the Slack |
 | [assign-notifier](github/notion/assign-notifier/) | GitHub | Notion | Create a task on Notion when the GitHub issue is assigned |
+| [upload](slack/cloudniary/upload/) | Slack | Cloudniary | Upload a file from Slack to Cloudniary |
+| [image-rotator](cloudniary/slack/image-rotator/) | Cloudniary | Slack | Returns the URL of the image rotated by 90 degrees when a file is uploaded to the Cloudniary |
 
 ## Build for Rust functions
 
