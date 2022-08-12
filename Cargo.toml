@@ -9,4 +9,6 @@ members = [
     "slack/slack/calculator/rust",
     "github/slack/commit-syncer/rust",
     "slack/slack/reverse/rust",
+    "slack/cloudniary/upload/rust",
+    "cloudniary/slack/image-rotator/rust",
 ]
