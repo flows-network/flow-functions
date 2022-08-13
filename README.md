@@ -1,5 +1,7 @@
 # WasmHaiku Flow Functions
 
+![badge](https://github.com/second-state/flow-functions/workflows/build/badge.svg?style=flat-square)
+
 | Package Name | Inbound | Outbound | Description |
 | ---- | ------- | -------- | ----------- |
 | [getting-started](github/slack/getting-started/) | GitHub | Slack | Send a message to Slack when new comments are added to GitHub issues |
