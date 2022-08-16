@@ -4,6 +4,7 @@ members = [
     "github/slack/star-messager/rust",
     "github/slack/issue-notifier/rust",
     "github/slack/commit-syncer/rust",
+    "github/slack/pr-messager/rust",
 
     "github/gmail/star-thanks-by-gmail/rust",
 
