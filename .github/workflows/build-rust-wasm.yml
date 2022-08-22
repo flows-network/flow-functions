@@ -1,0 +1,38 @@
+name: build
+
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'LICENSE'
+
+jobs:
+  build:
+    name: build rust action
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup rust-toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          target: wasm32-wasi
+          toolchain: stable
+          components: rustfmt
+
+      - name: Rust cache
+        uses: Swatinem/rust-cache@v1
+
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --workspace --release --target wasm32-wasi
