@@ -14,7 +14,8 @@ pub fn run(s: String) -> String {
 fn _run(s: String) -> String {
     let payload: Value = serde_json::from_str(&s).unwrap();
 
-    if payload.get("action").unwrap() != "opened" {
+    let action = payload.get("action").unwrap().as_str().unwrap();
+    if action != "opened" && action != "edited" {
         return String::new();
     }
 
@@ -150,7 +151,7 @@ mod tests {
         let s = String::from(
             r#"
             {
-                "action": "opened",
+                "action": "edited",
                 "pull_request": {
                     "number": 1,
                     "title": "[Rust] Ideas",
