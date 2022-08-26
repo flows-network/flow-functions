@@ -102,7 +102,7 @@ fn _run(s: String) -> String {
             pull_request["user"]["login"].as_str().unwrap()
         ));
 
-        labels.insert("invalid");
+        // labels.insert("invalid");
     } else {
         bodies.push(String::from("Welcome"));
 
@@ -142,7 +142,7 @@ mod tests {
 
         let r: serde_json::Value = serde_json::from_str(&_run(s)).unwrap();
 
-        assert_eq!(r["labels"][0], "invalid");
+        assert_ne!(r["labels"][0], "good first issue");
     }
 
     #[test]
