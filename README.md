@@ -14,8 +14,8 @@
 | star-messenger | GitHub | [Twilio](github/twilio/star-messenger/) / [Slack](github/slack/star-messager/) | Send thank you message via Twilio(or Slack) when GitHub repo gets star |
 | [calculator](slack/slack/calculator/) | Slack | Slcak | Compute the expressions on the Slack |
 | [assign-notifier](github/notion/assign-notifier/) | GitHub | Notion | Create a task on Notion when the GitHub issue is assigned |
-| [upload](slack/cloudniary/upload/) | Slack | Cloudniary | Upload a file from Slack to Cloudniary |
-| [image-rotator](cloudniary/slack/image-rotator/) | Cloudniary | Slack | Returns the URL of the image rotated by 90 degrees when a file is uploaded to the Cloudniary |
+| [upload](slack/cloudinary/upload/) | Slack | Cloudinary | Upload a file from Slack to Cloudinary |
+| [image-rotator](cloudinary/slack/image-rotator/) | Cloudinary | Slack | Returns the URL of the image rotated by 90 degrees when a file is uploaded to the Cloudinary |
 
 ## Build for Rust functions
 
