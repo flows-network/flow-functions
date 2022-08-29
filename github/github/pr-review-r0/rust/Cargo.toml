@@ -1,10 +1,10 @@
 [package]
-name = "auto-pr-comment"
+name = "pr-review-r0"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-path = "src/auto-pr-comment.rs"
+path = "src/pr-review-r0.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
