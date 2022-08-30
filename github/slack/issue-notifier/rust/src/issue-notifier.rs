@@ -66,14 +66,12 @@ pub fn run(s: String) -> String {
             }
         }
         if event_type != "" {
-            if body.contains("@darumadocker") {
                 return format!(
                     "{}\n{}\n{}",
                     event_type,
                     body.replace("\\r\\n", "\n"),
                     html_url
                 );
-            }
         }
     }
 
