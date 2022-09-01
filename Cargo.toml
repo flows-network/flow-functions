@@ -21,9 +21,12 @@ members = [
 
     "slack/slack/calculator/rust",
     "slack/slack/reverse/rust",
+
     "slack/slack/welcome/rust",
 
     "slack/cloudinary/upload/rust",
+
+    "slack/dropbox/upload/rust",
 
 
     "cloudinary/slack/image-rotator/rust",
