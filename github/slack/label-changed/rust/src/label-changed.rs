@@ -8,35 +8,19 @@ pub fn run(s: String) -> String {
     let result: Result<Value> = serde_json::from_str(s.as_str());
     let mut body: String = String::new();
     let mut event_type: &str = "";
-    let mut repo_name = String::new();
+    let mut html_url: &str = "";
     if let Ok(pl) = result {
         match pl.get("action") {
             Some(action) => {
                 if let Some(action) = action.as_str() {
                     match action {
-                        "created" => {
-                            if let Some(label) = pl.get("label") {
-                                event_type = "labels added";
-                                body = label.get("name").unwrap().to_string();
-                                repo_name = pl.get("repository").unwrap().as_str().unwrap().get
-                                ("full_name").unwrap();
-                            }
-                        }
-                        "edited" => {
-                            if let Some(label) = pl.get("changes") {
-                                event_type = "labels changed";
-                                body = label.to_string();
-                                // body = label.get("name").unwrap().to_string();
-
-                                repo_name = pl.get("repository").unwrap().as_str().unwrap().get("full_name").unwrap();
-                            }
-                        }
                         "deleted" => {
                             if let Some(label) = pl.get("label") {
+                                return label.to_string();
                                 event_type = "label deleted";
                                 body = label.get("name").unwrap().to_string();
 
-                                repo_name = pl.get("repository").unwrap().as_str().unwrap().get("full_name").unwrap();
+                                html_url = pl.get("repository").unwrap().get("html_url").unwrap().as_str().unwrap();
                             }
                         }
 
@@ -49,14 +33,6 @@ pub fn run(s: String) -> String {
             None => {
                 return "".to_string();
             }
-        }
-        if event_type != "" {
-            return format!(
-                "{}\n{}\n{}",
-                event_type,
-                body.replace("\\r\\n", "\n"),
-                repo_name
-            );
         }
     }
 
