@@ -6,21 +6,21 @@ use regex::Regex;
 
 #[wasmedge_bindgen]
 pub fn run_file_1(
-    exp: String, name: String, mimetype: String, pic: Vec<u8>
+    _: String, name: String, mimetype: String, file: Vec<u8>
 ) -> (String, String, String, Vec<u8>) {
     return (
-        "".to_string(),
-        name,
-        mimetype,
-        pic,
+        "".to_string(),     // (omit)
+        name,               // File name without extension (required)
+        mimetype,           // File MIME type (required)
+        file,               // File data
     );
 }
 
 #[wasmedge_bindgen]
 pub fn run(s: String) -> String {
-    let reg = Regex::new("<(\\S+)>").unwrap();
+    let reg = Regex::new("<(\\S+)>").unwrap(); // Because slack will add angle brackets around the link
     return json!({
         "url": reg.captures(&s).unwrap().get(1).unwrap().as_str(),
-        "file_type": "image"    // image | video | raw
+        "file_type": "image"    // It must be image/video/raw, 
     }).to_string();
 }

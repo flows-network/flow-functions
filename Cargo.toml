@@ -20,6 +20,10 @@ members = [
 
     "slack/slack/calculator/rust",
     "slack/slack/reverse/rust",
+
     "slack/cloudinary/upload/rust",
+
+    "slack/dropbox/upload/rust",
+
     "cloudinary/slack/image-rotator/rust",
 ]
