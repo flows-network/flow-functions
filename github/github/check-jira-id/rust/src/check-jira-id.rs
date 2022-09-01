@@ -1,5 +1,6 @@
 use std::collections::HashSet;
 
+use regex::Regex;
 use serde_json::Value;
 use wasmedge_bindgen_macro::*;
 
@@ -25,88 +26,21 @@ fn _run(s: String) -> String {
     let title = pull_request.get("title").unwrap().as_str().unwrap();
 
     let mut bodies: Vec<String> = vec![];
-    let mut labels: HashSet<&str> = HashSet::new();
     let mut assignees: HashSet<&str> = HashSet::new();
 
-    let mut chars = title.trim().chars();
+    let re = Regex::new(r"[A-Za-z]{3}-\d{4}-.+").unwrap();
 
-    let first_char = chars.next().unwrap();
-    let aspect: String = chars.take_while(|&c| c != ']').collect();
-
-    if first_char != '['
-        || aspect.len() >= title.len() - 2
-        || !vec![
-            // Platforms
-            "Android",
-            "OHOS",
-            "OpenWrt",
-            // Bindings
-            "Rust",
-            // Internal Components
-            "AOT",
-            "AST",
-            "Common",
-            "Conf",
-            "Core",
-            "Driver",
-            "Executor",
-            "Interpreter",
-            "Loader",
-            "Log",
-            "Runtime",
-            "Statistics",
-            "Support",
-            "System",
-            "PO",
-            "Validator",
-            "VM",
-            // WASM/WASI Proposals and extensions
-            "EVMC",
-            "SIMD",
-            "WASI",
-            "WASI-Crypto",
-            "WASI-NN",
-            "WASI-Socket",
-            // Exposed API
-            "API",
-            // CI and Testing
-            "CI",
-            "Docker",
-            "Test",
-            // Misc
-            "Changelog",
-            "CMake",
-            "Deps",
-            "Docs",
-            "Examples",
-            "Installer",
-            "Misc",
-            "Plugin",
-            "Refactoring",
-            "RPM",
-            "SRPM",
-            "Thirdparty",
-            "Tools",
-            "Utils",
-        ]
-        .contains(&aspect.as_ref())
-    {
+    if !re.is_match(title) {
         bodies.push(String::from(
-            "This PR's title doesn't match our requirement. ",
+            "This PR's title doesn't match our requirement.",
         ));
-        bodies.push(String::from(
-            "Please check: https://hackmd.io/@n5yKF-gRQ0axsmsusU3rNA/ryRjtTnC5",
-        ));
+        bodies.push(String::from("Please check your title."));
         bodies.push(format!(
             "@{}, please update it.",
             pull_request["user"]["login"].as_str().unwrap()
         ));
-
-        // labels.insert("invalid");
     } else {
         bodies.push(String::from("Welcome"));
-
-        labels.insert("good first issue");
 
         assignees.insert("jetjinser");
     };
@@ -114,7 +48,6 @@ fn _run(s: String) -> String {
     serde_json::json!({
         "issue_number": number,
         "body": bodies.join("\n").to_owned(),
-        "labels": labels,
         "assignees": assignees,
     })
     .to_string()
@@ -142,7 +75,7 @@ mod tests {
 
         let r: serde_json::Value = serde_json::from_str(&_run(s)).unwrap();
 
-        assert_ne!(r["labels"][0], "good first issue");
+        assert_ne!(r["assignees"][0], "jetjinser");
     }
 
     #[test]
@@ -154,7 +87,7 @@ mod tests {
                 "action": "edited",
                 "pull_request": {
                     "number": 1,
-                    "title": "[Rust] Ideas",
+                    "title": "ABC-1234-abstraction",
                     "user": {
                         "login": "someone"
                     }
@@ -165,6 +98,6 @@ mod tests {
 
         let r: serde_json::Value = serde_json::from_str(&_run(s)).unwrap();
 
-        assert_eq!(r["labels"][0], "good first issue");
+        assert_eq!(r["assignees"][0], "jetjinser");
     }
 }

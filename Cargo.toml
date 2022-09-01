@@ -16,9 +16,10 @@ members = [
     "github/twilio/star-messenger/rust",
 
     "github/github/auto-pr-comment/rust",
+    "github/github/check-jira-id/rust",
 
     "slack/slack/calculator/rust",
     "slack/slack/reverse/rust",
-    "slack/cloudniary/upload/rust",
-    "cloudniary/slack/image-rotator/rust",
+    "slack/cloudinary/upload/rust",
+    "cloudinary/slack/image-rotator/rust",
 ]

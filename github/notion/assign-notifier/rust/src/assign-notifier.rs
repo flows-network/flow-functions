@@ -1,7 +1,7 @@
 #[allow(unused_imports)]
 use wasmedge_bindgen::*;
 use wasmedge_bindgen_macro::*;
-use serde_json::Value;
+use serde_json::{Value, json};
 
 #[wasmedge_bindgen]
 pub fn run(s: String) -> Result<String, String> {
@@ -24,7 +24,9 @@ pub fn run(s: String) -> Result<String, String> {
     }
 
     if let Some(url) = json["issue"]["html_url"].as_str() {
-        Ok(url.to_string())
+        Ok(json!({
+            "Name": url
+        }).to_string())
     } else {
         Err("Failed to get issue url".to_string())
     }
