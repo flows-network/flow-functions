@@ -28,13 +28,13 @@ fn _run(s: String) -> String {
     let mut bodies: Vec<String> = vec![];
     let mut assignees: HashSet<&str> = HashSet::new();
 
-    let re = Regex::new(r"[A-Za-z]{3}-\d{4}-.+").unwrap();
+    let re = Regex::new(r"^[A-Za-z]{3}-\d+").unwrap();
 
     if !re.is_match(title) {
         bodies.push(String::from(
             "This PR's title doesn't match our requirement.",
         ));
-        bodies.push(String::from("Please check your title."));
+        bodies.push(String::from("Please make sure your titile includes the corresponding Jira id."));
         bodies.push(format!(
             "@{}, please update it.",
             pull_request["user"]["login"].as_str().unwrap()
@@ -87,7 +87,7 @@ mod tests {
                 "action": "edited",
                 "pull_request": {
                     "number": 1,
-                    "title": "ABC-1234-abstraction",
+                    "title": "ABC-1234 abstraction",
                     "user": {
                         "login": "someone"
                     }
