@@ -34,7 +34,7 @@ fn _run(s: String) -> String {
         bodies.push(String::from(
             "This PR's title doesn't match our requirement.",
         ));
-        bodies.push(String::from("Please make sure your titile includes the corresponding Jira id."));
+        bodies.push(String::from("Please make sure your title includes the corresponding Jira id."));
         bodies.push(format!(
             "@{}, please update it.",
             pull_request["user"]["login"].as_str().unwrap()
