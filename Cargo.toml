@@ -7,6 +7,9 @@ members = [
     "github/slack/pr-messager/rust",
     "github/slack/pr-review-notifier/rust",
     "github/slack/discussion-comment-notifier/rust",
+    "github/slack/pr-review-comment-notifier/rust",
+    "github/slack/label-notifier/rust",
+    "github/slack/discussion-notifier/rust",
 
     "github/gmail/star-thanks-by-gmail/rust",
     "github/gmail/pr-thanks-by-gmail/rust",
