@@ -1,5 +1,5 @@
 [package]
-name = "cloudinary-upload"
+name = "dropbox-upload"
 version = "0.1.0"
 edition = "2021"
 
@@ -10,4 +10,4 @@ crate-type = ["cdylib"]
 [dependencies]
 wasmedge-bindgen = "0.4.0"
 wasmedge-bindgen-macro = "0.4.0"
-regex = "1.6.0"
+
