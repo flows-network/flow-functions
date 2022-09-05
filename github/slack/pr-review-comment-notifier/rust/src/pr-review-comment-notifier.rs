@@ -15,46 +15,22 @@ pub fn run(s: String) -> Result<String, String> {
         }
     };
 
-    let mut body: String = String::new();
-    let mut event_type: &str = "";
-    let mut pr_title: &str = "";
+    let mut event_type: String = String::new();
+    let pr_title: &str = res.get("pull_request").unwrap()["title"].as_str().unwrap();
+    let mut body: &str = "";
     let mut commenter: &str = "";
     let mut html_url: &str = "";
 
-    let action = match res["action"].as_str() {
-        Some(action) => action,
+    match res["action"].as_str() {
+        Some(action) => event_type = format!("pr review comment {}", action),
         None => return Err("Parse action failed.".to_string()),
     };
 
-    match action {
-        "created" => {
-            if let Some(comment) = res.get("comment") {
-                event_type = "comment created";
-                pr_title = res.get("pull_request").unwrap()["title"].as_str().unwrap();
-                body = comment["body"].as_str().unwrap().to_string();
-                commenter = comment["author_association"].as_str().unwrap();
-                html_url = comment["html_url"].as_str().unwrap();
-            }
-        },
-        "edited" => {
-            if let Some(comment) = res.get("comment") {
-                event_type = "comment edited";
-                pr_title = res.get("pull_request").unwrap()["title"].as_str().unwrap();
-                body = comment["body"].as_str().unwrap().to_string();
-                commenter = comment["author_association"].as_str().unwrap();
-                html_url = comment["html_url"].as_str().unwrap();
-            }
-        },
-        "deleted" => {
-            if let Some(comment) = res.get("comment") {
-                event_type = "comment deleted";
-                pr_title = res.get("pull_request").unwrap()["title"].as_str().unwrap();
-                body = comment["body"].as_str().unwrap().to_string();
-                commenter = comment["author_association"].as_str().unwrap();
-                html_url = comment["html_url"].as_str().unwrap();
-            }
-        },
-        _ => {}
+
+    if let Some(comment) = res.get("comment") {
+        body = comment["body"].as_str().unwrap();
+        commenter = comment["author_association"].as_str().unwrap();
+        html_url = comment["html_url"].as_str().unwrap();
     }
 
 

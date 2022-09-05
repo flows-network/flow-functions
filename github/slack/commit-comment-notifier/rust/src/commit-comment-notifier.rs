@@ -15,29 +15,25 @@ pub fn run(s: String) -> Result<String, String> {
         }
     };
 
+
     let mut event_type: String = String::new();
-    let mut title: &str = "";
     let mut body: &str = "";
     let mut html_url: &str = "";
 
-    let action = match res["action"].as_str() {
-        Some(action) => action,
+    match res["action"].as_str() {
+        Some(action) => event_type = format!("commit comment {}", action),
         None => return Err("Parse action failed.".to_string()),
     };
 
-
-    if let Some(discussion) = res.get("discussion") {
-        event_type = format!("discussion {}", action);
-        title = discussion["title"].as_str().unwrap();
-        body = discussion["body"].as_str().unwrap();
-        html_url = discussion["html_url"].as_str().unwrap();
+    if let Some(comment) = res.get("comment") {
+        body = comment["body"].as_str().unwrap();
+        html_url = comment["html_url"].as_str().unwrap();
     }
 
     if event_type != "" {
         return Ok(format!(
-            "{}\n{}\n{}\n{}",
+            "{}\n{}\n{}",
             event_type,
-            title,
             body,
             html_url
         ));
@@ -47,4 +43,3 @@ pub fn run(s: String) -> Result<String, String> {
         ))
     }
 }
-
