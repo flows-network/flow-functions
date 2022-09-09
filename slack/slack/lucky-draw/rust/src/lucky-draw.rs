@@ -7,8 +7,8 @@ use rand::{thread_rng, Rng};
 pub fn run(s: String) -> String {
     let mut rng = thread_rng();
 
-    match s.as_str() {
-        "Lucky Draw" | "lucky draw" | "Y" | "y" => {
+    match s.to_ascii_lowercase().as_str() {
+        "lucky draw" | "y" => {
             let is_lucky = rng.gen_bool(1.0 / 2.0);
             if is_lucky {
                 return "You are lucky!".to_string();
