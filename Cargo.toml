@@ -29,8 +29,7 @@ members = [
 
     "github/github/auto-pr-comment/rust",
     "github/github/auto-issue-comment/rust",
-    "github/github/auto-issue-assign/rust",
-    "github/github/auto-issue-label/rust",
+
     "github/github/check-jira-id/rust",
 
     "slack/slack/calculator/rust",
