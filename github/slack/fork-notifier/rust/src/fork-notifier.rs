@@ -1,3 +1,5 @@
+use std::fmt::format;
+use serde_json::from_str;
 #[allow(unused_imports)]
 use serde_json::Value;
 use wasmedge_bindgen::*;
@@ -14,30 +16,23 @@ pub fn run(s: String) -> Result<String, String> {
             ))
         }
     };
-
     let mut event_type: String = String::new();
-    let mut title: &str = "";
-    let mut body: &str = "";
+    let repo_name: String = res.get("repository").unwrap()["name"].as_str().unwrap().to_string();
     let mut html_url: &str = "";
-
-    match res["action"].as_str() {
-        Some(action) => event_type = format!("discussion {}", action),
-        None => return Err("Parse action failed.".to_string()),
-    };
+    let mut visibility: &str = "";
 
 
-    if let Some(discussion) = res.get("discussion") {
-        title = discussion["title"].as_str().unwrap();
-        body = discussion["body"].as_str().unwrap();
-        html_url = discussion["html_url"].as_str().unwrap();
+    if let Some(forkee) = res.get("forkee") {
+        event_type = format!("{} forked", repo_name);
+        visibility = forkee["visibility"].as_str().unwrap();
+        html_url = forkee["html_url"].as_str().unwrap();
     }
 
     if event_type != "" {
         return Ok(format!(
-            "{}\n{}\n{}\n{}",
+            "{}\n{}\n{}",
             event_type,
-            title,
-            body,
+            visibility,
             html_url
         ));
     } else {
@@ -46,4 +41,3 @@ pub fn run(s: String) -> Result<String, String> {
         ))
     }
 }
-

@@ -1,3 +1,4 @@
+use std::fmt::format;
 use serde_json::from_str;
 #[allow(unused_imports)]
 use serde_json::Value;
@@ -15,39 +16,20 @@ pub fn run(s: String) -> Result<String, String> {
             ))
         }
     };
-    let mut event_type: &str = "";
+    let mut event_type: String = String::new();
     let mut name: &str = "";
-    let mut html_url: &str = "";
+    let html_url: &str = res.get("repository").unwrap()["html_url"].as_str().unwrap();
 
-    let action = match res["action"].as_str() {
-        Some(action) => action,
+    match res["action"].as_str() {
+        Some(action) => event_type = format!("label {}", action),
         None => return Err("Parse action failed.".to_string()),
     };
 
-    match action {
-        "created" => {
-            if let Some(label) = res.get("label") {
-                event_type = "label created";
-                name = label["name"].as_str().unwrap();
-                html_url = res.get("repository").unwrap()["html_url"].as_str().unwrap();
-            }
-        },
-        "edited" => {
-            if let Some(label) = res.get("label") {
-                event_type = "label edited";
-                name = label["name"].as_str().unwrap();
-                html_url = res.get("repository").unwrap()["html_url"].as_str().unwrap();
-            }
-        },
-        "deleted" => {
-            if let Some(label) = res.get("label") {
-                event_type = "label deleted";
-                name = label["name"].as_str().unwrap();
-                html_url = res.get("repository").unwrap()["html_url"].as_str().unwrap();
-            }
-        },
-        _ => {}
+
+    if let Some(label) = res.get("label") {
+        name = label["name"].as_str().unwrap();
     }
+
     if event_type != "" {
         return Ok(format!(
             "{}\n{}\n{}",
