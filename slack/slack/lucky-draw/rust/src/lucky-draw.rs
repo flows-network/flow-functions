@@ -20,7 +20,7 @@ pub fn run(s: String) -> String {
             Do you mean "lucky draw"?
             If Yes, please type "Y". Plase enter "N" to abort."#.to_string();
         },
-        "N" | "n" => { return "".to_string(); },
+        "n" => { return "".to_string(); },
         _ => { return "I don't quite understand you. Please reenter your instruction!".to_string
         (); }
     }
