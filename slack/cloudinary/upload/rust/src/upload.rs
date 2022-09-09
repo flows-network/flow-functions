@@ -16,7 +16,7 @@ pub fn run_file_1(
 }
 
 #[wasmedge_bindgen]
-pub fn run_file_url(s: String) -> String {
+pub fn run(s: String) -> String {
     // Because slack will add angle brackets around the link
     let reg = Regex::new("<(\\S+)>").unwrap(); 
 
