@@ -7,6 +7,10 @@ members = [
     "github/slack/pr-messager/rust",
     "github/slack/pr-review-notifier/rust",
     "github/slack/discussion-comment-notifier/rust",
+    "github/slack/pr-review-comment-notifier/rust",
+    "github/slack/branch-tag-created/rust",
+    "github/slack/branch-tag-deleted/rust",
+    "github/slack/commit-comment-notifier/rust",
 
     "github/gmail/star-thanks-by-gmail/rust",
     "github/gmail/pr-thanks-by-gmail/rust",
@@ -20,12 +24,16 @@ members = [
     "github/github/auto-pr-comment/rust",
     "github/github/check-jira-id/rust",
 
+
     "slack/slack/calculator/rust",
     "slack/slack/reverse/rust",
+
+    "slack/slack/welcome/rust",
 
     "slack/cloudinary/upload/rust",
 
     "slack/dropbox/upload/rust",
+
 
     "cloudinary/slack/image-rotator/rust",
 ]
