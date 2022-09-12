@@ -42,24 +42,22 @@ fn _run(s: String) -> String {
 
 
     let mut labels: HashSet<String> = HashSet::new();
-    let mut title_as_tags: HashSet<String> = HashSet::<String>::new();
 
     let is_issue_task = payload.get("issue").is_some();
     let is_pr_task = payload.get("pull_request").is_some();
 
-    let mut title: &str = "";
-    let mut number: i64 = 0;
-    let mut bodies: Vec<String> = Vec::<String>::new();
-    let mut assignee: &str = "";
-    let mut assignees: HashSet<String> = HashSet::<String>::new();
 
-    match (is_issue_task, is_pr_task) {
-        (true, _) => extract_issue(&payload, number, title, &mut bodies, assignee, assignees),
-        (_, true) => extract_pr(&payload, number, title, &mut bodies, assignee, assignees),
-        (_, _) => {},
-    }
+    let (number, title, mut bodies, mut assignee, mut assignees) = if is_issue_task {
+        extract_inner(&payload, "issue")
+    } else if is_pr_task {
+        extract_inner(&payload, "pull_request")
+    } else {
+        (0, "NO-TITLE".to_string(), vec!["EMPTY-BODY".to_string()], "NO-ASSIGNEE".to_string(),
+         HashSet::<String>::new())
+    };
 
-    title_as_tags = title_to_tags(title);
+
+    let title_as_tags: HashSet<String> = title_to_tags(&title);
     labels = assign_labels(&keywords_tags_map, &title_as_tags);
     assignees = specify_assignee(&keywords_tags_map, &title_as_tags);
     bodies.push(format!(
@@ -69,7 +67,7 @@ fn _run(s: String) -> String {
 
     let body = bodies.join("\n");
     labels.insert("whatever".to_string());
-assignees.insert("jaykchen".to_string());
+    assignees.insert("jaykchen".to_string());
     assignees.insert("amiiiiii830".to_string());
 
     serde_json::json!({
@@ -99,57 +97,43 @@ pub fn assign_labels(dic: &HashMap<String, Vec<String>>, inp: &HashSet<String>) 
     issue_or_pr_tags.into_iter().map(|x| x.to_string()).collect::<HashSet<String>>()
 }
 
-pub fn extract_issue<'a>(payload: &'a Value, mut number: i64, mut title: &'a str, bodies: &mut Vec<String>,
-                         mut assignee: &'a str, mut assignees: HashSet<String>) {
-    let has_assignee = payload.get("assignee").is_some();
-    let issue = payload.get("issue").unwrap();
-    let issue_owner = issue.get("user").unwrap()["login"].as_str().unwrap();
-    number = issue.get("number").unwrap().as_i64().unwrap();
-    title = issue["title"].as_str().unwrap();
-    if has_assignee {
-        assignee = issue.get("assignee").unwrap()["login"].as_str().unwrap();
-    }
-    assignees = match issue.get("assignees") {
+pub fn extract_inner(payload: &Value, element_type: &str) -> (i64, String, Vec<String>,
+                                                              String,
+                                                              HashSet<String>) {
+    let element = payload.get(element_type).unwrap();
+    let element_owner = element.get("user").unwrap()["login"].as_str().unwrap();
+    let number = element.get("number").unwrap().as_i64().unwrap();
+    let title = element["title"].as_str().unwrap();
+    let assignee = element.get("assignee").unwrap()["login"].as_str().unwrap_or("");
+
+    let assignees = match element.get("assignees") {
         Some(list) => list.as_array().unwrap().iter().map(|person|
             person["login"].as_str().unwrap().to_string()).collect::<HashSet<String>>(),
         None => HashSet::new(),
     };
 
-    bodies.push(format!(
-        "Thank you @{} for submitting issues!",
-        issue_owner,
-    ));
-}
-
-pub fn extract_pr<'a>(payload: &'a Value, mut number: i64, mut title: &'a str, bodies: &mut Vec<String>,
-                      mut assignee: &'a str, mut assignees: HashSet<String>) {
-    let has_assignee = payload.get("assignee").is_some();
-    let pull_request = payload.get("pull_request").unwrap();
-    let pr_owner = pull_request.get("user").unwrap()["login"].as_str().unwrap();
-    number = pull_request.get("number").unwrap().as_i64().unwrap();
-    title = pull_request["title"].as_str().unwrap();
-    if has_assignee {
-        assignee = pull_request.get("assignee").unwrap()["login"].as_str().unwrap();
-    }
-    assignees = match pull_request.get("assignees") {
-        Some(list) => list.as_array().unwrap().iter().map(|person|
-            person["login"].as_str().unwrap().to_string()).collect::<HashSet<String>>(),
-        None => HashSet::new(),
+    let element_type_name = match element_type {
+        "issue" => "issue",
+        "pull_request" => "pull request",
+        _ => unreachable!(),
     };
+    let bodies = vec![format!(
+        "Thank you @{} for submitting {}!",
+        element_owner,
+        element_type_name,
+    )];
 
-    bodies.push(format!(
-        "Thank you @{} for your contribution!",
-        pr_owner,
-    ));
+    (number, title.to_string(), bodies, assignee.to_string(), assignees)
 }
 
-pub fn title_to_tags<'a>(title: &'a str) -> HashSet<String> {
+
+pub fn title_to_tags(title: &String) -> HashSet<String> {
     title.trim().split_whitespace().map(|word| {
         word.chars().filter(|&c| c.is_alphanumeric() | is_special_char(c)).collect::<String>()
     }).collect::<HashSet<String>>()
 }
 
-pub fn specify_assignee<'a>(dic: &'a HashMap<String, Vec<String>>, inp: &'a HashSet<String>) -> HashSet<String> {
+pub fn specify_assignee(dic: &HashMap<String, Vec<String>>, inp: &HashSet<String>) -> HashSet<String> {
     let mut res: HashSet<&str> = HashSet::new();
     let mut issue_or_pr_tags: HashSet<String> = HashSet::<String>::new();
     for needle in inp {
