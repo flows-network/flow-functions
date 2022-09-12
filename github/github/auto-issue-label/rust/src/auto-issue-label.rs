@@ -1,4 +1,5 @@
-use serde_json::Value;
+use std::collections::{HashMap, HashSet};
+use serde_json::{to_string, Value};
 use wasmedge_bindgen_macro::*;
 
 #[cfg(target_family = "wasm")]
@@ -10,6 +11,34 @@ pub fn run(s: String) -> String {
 }
 
 fn _run(s: String) -> String {
+    let keywords_label_table: Vec<(&str, Vec<&str>)> = vec![("Platforms", vec!["Android", "OHOS", "OpenWrt"]),
+                                                            ("Bindings", vec!["Rust"]),
+                                                            ("Internal Components", vec!["AOT", "AST", "Common", "Conf", "Core", "Driver", "Executor", "Interpreter", "Loader", "Log", "Runtime", "Statistics", "Support", "System", "PO", "Validator", "VM"]),
+                                                            ("WASM/WASI", vec!["TO-BE-SPECIFIED"]),
+                                                            ("Proposals and extensions", vec!["EVMC", "SIMD", "WASI", "WASI-Crypto", "WASI-NN", "WASI-Socket"]),
+                                                            ("Exposed API", vec!["API"]),
+                                                            ("CI and Testing", vec!["CI", "Docker", "Test"]),
+                                                            ("Misc", vec!["Changelog", "CMake", "Deps", "Docs", "Examples", "Installer", "Misc", "Plugin", "Refactoring", "RPM", "SRPM", "Thirdparty", "Tools", "Utils"]),
+                                                            ("Bindings", vec!["Rust"]),
+                                                            ("Internal Components", vec!["AOT", "AST", "Common", "Conf", "Core", "Driver", "Executor", "Interpreter", "Loader", "Log", "Runtime", "Statistics", "Support", "System", "PO", "Validator", "VM"]),
+                                                            ("bug", vec!["can\'t", "bug", "not", "fail", "error"]),
+                                                            ("documentation", vec!["doc", "book", "translat", "demo", ".md"]),
+                                                            ("duplicate", vec!["copy", "duplicate"]),
+                                                            ("enhancement", vec!["improve", "enhance", "support", "implement", "remove", "enable", "roadmap"]),
+                                                            ("good first issue", vec!["demo", "add", "example"]),
+                                                            ("support", vec!["help", "need", "assistance"]),
+                                                            ("feature", vec!["design", "create", "propose", "support", "provide", "feat"]),
+                                                            ("invalid", vec!["invalid", "wrong", "mistake"]),
+                                                            ("question", vec!["ask", "question", "answer", "possible", "how", "what", "potential", "likely"])];
+
+
+    let keywords_label_map = keywords_label_table.into_iter().map(|(word, arr)| {
+        let word_string = word.to_string();
+        let vec_string = arr.into_iter().map(|x| x.to_ascii_lowercase().to_string()).collect::<Vec<String>>();
+        (word_string, vec_string)
+    }).collect::<HashMap<String, Vec<String>>>();
+
+
     let payload: Value = serde_json::from_str(&s).unwrap();
 
     let action = payload.get("action").unwrap().as_str().unwrap();
@@ -26,10 +55,10 @@ fn _run(s: String) -> String {
     let mut bodies: Vec<String> = vec![];
 
     let title_as_keys = title.trim().split_whitespace().map(|word| {
-        word.chars().filter(|&c| c.is_alphanumeric() | (c == '-') | (c == '_') | (c == '/')).collect::<String>()
+        word.to_ascii_lowercase().chars().filter(|&c| c.is_alphanumeric() | is_special_char(c)).collect::<String>()
     }).collect::<Vec<String>>();
 
-    let labels: Vec<&str> = assign_label(&title_as_keys);
+    let labels: Vec<String> = assign_label(keywords_label_map, &title_as_keys);
 
     bodies.push(format!(
         "Thank you @{} for your feedback. Our maintainer will deal with the issue according to the assigned label.",
@@ -43,35 +72,20 @@ fn _run(s: String) -> String {
     }).to_string()
 }
 
-pub fn assign_label(inp: &Vec<String>) -> Vec<&str> {
-    let mut res = vec![];
-    match inp {
-        inp if contains_keyword(inp, vec!["Bug", "bug"]) => res.push("bug"),
-        inp if contains_keyword(inp, vec!["documents", "doc", "docs", "documentation",
-                                          "documentations"]) => res.push("documentation"),
-        inp if contains_keyword(inp, vec!["copy", "duplicate"]) => res.push("duplicate"),
-        inp if contains_keyword(inp, vec!["improved", "enhance", "enhancement", "enhancements"]) => res.push("enhancement"),
-        inp if inp.is_empty() => res.push("good first issue"),
-        inp if contains_keyword(inp, vec!["help", "need", "assistance"]) => res.push("help wanted"),
-        inp if contains_keyword(inp, vec!["invalid", "wrong", "mistake"]) => res.push("invalid"),
-        inp if contains_keyword(inp, vec!["ask", "question", "answer"]) => res.push("question"),
-        inp if contains_keyword(inp, vec!["disaster"]) => res.push("wontfix"),
-        _ => res.push(inp[0].as_str()),
-    }
-    res
+pub fn is_special_char(inp: char) -> bool {
+    let special_chars = r#".'-_/"#;
+    special_chars.chars().any(|c| c == inp)
 }
 
-pub fn contains_keyword(needle: &Vec<String>, keywords: Vec<&str>) -> bool {
-    let mut count = 0;
-
-    for word in needle {
-        for key in &keywords {
-            if word.starts_with(key) {
-                count += 1;
-                break;
+pub fn assign_label(dic: HashMap<String, Vec<String>>, inp: &Vec<String>) -> Vec<String> {
+    let mut res = HashSet::<String>::new();
+    for needle in inp {
+        for (k, v) in dic.iter() {
+            if v.contains(needle) {
+                res.insert(k.clone());
             }
         }
     }
-    count >= 1
+    res.into_iter().collect::<Vec<String>>()
 }
 
