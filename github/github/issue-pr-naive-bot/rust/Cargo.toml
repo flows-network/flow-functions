@@ -1,10 +1,10 @@
 [package]
-name = "auto-issue-assignee"
+name = "issue-pr-naive-bot"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-path = "src/auto-issue-assignee.rs"
+path = "src/issue-pr-naive-bot.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
