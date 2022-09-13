@@ -27,5 +27,7 @@ members = [
 
     "slack/dropbox/upload/rust",
 
+    "slack/github/issue-creator/rust",
+
     "cloudinary/slack/image-rotator/rust",
 ]
