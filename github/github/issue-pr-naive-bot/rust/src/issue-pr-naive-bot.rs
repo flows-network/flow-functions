@@ -11,7 +11,7 @@ pub fn run(s: String) -> String {
 }
 
 fn _run(s: String) -> String {
-    let keywords_tags_table: Vec<(&str, Vec<&str>)> = vec![
+    let keywords_tags_map: HashMap<&str, Vec<&str>> = vec![
         ("Platforms", vec!["Android", "OHOS", "OpenWrt"]),
         ("Bindings", vec!["Rust"]),
         (
@@ -131,12 +131,7 @@ fn _run(s: String) -> String {
             ],
         ),
         ("wontfix", vec!["TO-BE-SPECIFIED"]),
-    ];
-    let keywords_tags_map = keywords_tags_table.into_iter().map(|(word, arr)| {
-        let word_string = word.to_string();
-        let vec_string = arr.into_iter().map(|x| x.to_ascii_lowercase().to_string()).collect();
-        (word_string, vec_string)
-    }).collect::<HashMap<String, Vec<String>>>();
+    ].into_iter().collect::<HashMap<&str, Vec<&str>>>();
 
     let payload: Value = serde_json::from_str(&s).unwrap();
 
@@ -188,7 +183,6 @@ pub struct ExtractedData {
     title: String,
     bodies: Vec<String>,
     labels: HashSet<String>,
-    assignee: String,
     assignees: HashSet<String>,
     owner: String,
     sender: String,
@@ -208,7 +202,6 @@ pub fn extract_inner(
         None => HashSet::new(),
     };
 
-    let assignee = element.get("assignee").unwrap()["login"].as_str().unwrap_or("").to_string();
 
     let assignees = match element.get("assignees") {
         Some(list) => list.as_array().unwrap().iter().map(|person| person["login"].as_str().unwrap().to_string()).collect::<HashSet<String>>(),
@@ -230,19 +223,18 @@ pub fn extract_inner(
         title,
         bodies,
         labels,
-        assignee,
         assignees,
         owner,
         sender
     }
 }
 
-pub fn assign_labels(dic: &HashMap<String, Vec<String>>, title_as_tags: &HashSet<String>) -> HashSet<String> {
+pub fn assign_labels(dic: &HashMap<&str, Vec<&str>>, title_as_tags: &HashSet<String>) -> HashSet<String> {
     let mut label_assigned: HashSet<String> = HashSet::<String>::new();
     for tag in title_as_tags {
         for (k, v) in dic.iter() {
-            if v.contains(tag) {
-                label_assigned.insert(k.clone());
+            if v.contains(&tag.as_str()) {
+                label_assigned.insert(k.to_string());
                 break;
             }
         }
@@ -252,7 +244,7 @@ pub fn assign_labels(dic: &HashMap<String, Vec<String>>, title_as_tags: &HashSet
 }
 
 pub fn specify_assignee(
-    dic: &HashMap<String, Vec<String>>,
+    dic: &HashMap<&str, Vec<&str>>,
     title_as_tags: &HashSet<String>,
 ) -> HashSet<String> {
     let mut res: HashSet<&str> = HashSet::new();
