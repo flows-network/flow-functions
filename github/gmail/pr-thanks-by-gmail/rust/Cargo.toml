@@ -8,6 +8,6 @@ path = "src/pr-thanks-by-gmail.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
+connector-dsi = { git="https://github.com/second-state/connector-dsi" }
 wasmedge-bindgen = "0.4.0"
 wasmedge-bindgen-macro = "0.4.0"
-serde_json = "1.0"

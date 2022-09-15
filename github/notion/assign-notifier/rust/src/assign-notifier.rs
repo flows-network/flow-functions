@@ -1,33 +1,22 @@
-#[allow(unused_imports)]
-use wasmedge_bindgen::*;
 use wasmedge_bindgen_macro::*;
-use serde_json::{Value, json};
+use connector_dsi::{github::inbound, notion::outbound};
 
+#[cfg(target_family = "wasm")]
 #[wasmedge_bindgen]
 pub fn run(s: String) -> Result<String, String> {
-    let json = match serde_json::from_str::<Value>(s.as_str()) {
-        Ok(s) => s,
-        Err(e) => {
-            return Err(format!(
-                "GitHub webhook payloads parsing failed: {}.",
-                e.to_string()
-            ))
-        }
-    };
+    #[allow(unused_imports)]
+    use wasmedge_bindgen::*;
+    _run(s)
+}
 
-    if let Some(action) = json.get("action") {
-        if action != "assigned" {
-            return Ok("".to_string());
-        }
-    } else {
-        return Err("Failed to get action".to_string());
+pub fn _run(s: String) -> Result<String, String> {
+    let payload = inbound(s)?;
+
+    if payload.get_action()? != "assigned" {
+        return Ok(String::new());
     }
 
-    if let Some(url) = json["issue"]["html_url"].as_str() {
-        Ok(json!({
-            "Name": url
-        }).to_string())
-    } else {
-        Err("Failed to get issue url".to_string())
-    }
+    outbound()
+        .page("Name", &payload.get_issue()?.html_url)
+        .build()
 }

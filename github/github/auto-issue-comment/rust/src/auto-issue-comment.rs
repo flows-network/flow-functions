@@ -1,28 +1,22 @@
-use serde_json::Value;
 use wasmedge_bindgen_macro::*;
+use connector_dsi::github::{inbound, outbound};
 
 #[cfg(target_family = "wasm")]
 #[wasmedge_bindgen]
-pub fn run(s: String) -> String {
+pub fn run(s: String) -> Result<String, String> {
     #[allow(unused_imports)]
     use wasmedge_bindgen::*;
     _run(s)
 }
 
-fn _run(s: String) -> String {
-    let payload: Value = serde_json::from_str(&s).unwrap();
+pub fn _run(s: String) -> Result<String, String> {
+    let payload = inbound(s)?;
 
-    let action = payload.get("action").unwrap().as_str().unwrap();
-    if action != "opened" {
-        return String::new();
+    if payload.get_action()? != "opened" {
+        return Ok(String::new());
     }
 
-    let issue = payload.get("issue").unwrap();
-
-    let number = issue.get("number").unwrap().as_i64().unwrap();
-
-    serde_json::json!({
-        "issue_number": number,
-        "body": "Thanks for your feedback. Our maintainer will respond to you soon.",
-   }).to_string()
+    outbound::modify_issue(payload.get_issue()?.number)
+        .body("Thanks for your feedback. Our maintainer will respond to you soon.")
+        .build()
 }
