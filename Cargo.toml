@@ -20,6 +20,7 @@ members = [
 
     "github/gmail/star-thanks-by-gmail/rust",
     "github/gmail/pr-thanks-by-gmail/rust",
+    "github/gmail/invite-after-merge/rust",
 
     "github/sendgrid/star-thanks-by-sendgrid/rust",
 
@@ -30,6 +31,7 @@ members = [
     "github/github/auto-pr-comment/rust",
     "github/github/auto-issue-comment/rust",
     "github/github/issue-pr-naive-bot/rust",
+    "github/github/issue-review-notifier/rust",
 
     "github/github/check-jira-id/rust",
 
