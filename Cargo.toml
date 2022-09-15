@@ -20,7 +20,6 @@ members = [
 
     "github/gmail/star-thanks-by-gmail/rust",
     "github/gmail/pr-thanks-by-gmail/rust",
-    "github/gmail/invite-after-merge/rust",
 
     "github/sendgrid/star-thanks-by-sendgrid/rust",
 
