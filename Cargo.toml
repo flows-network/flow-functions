@@ -30,6 +30,7 @@ members = [
     "github/github/auto-pr-comment/rust",
     "github/github/auto-issue-comment/rust",
     "github/github/issue-pr-naive-bot/rust",
+    "github/github/issue-review-notifier/rust",
 
     "github/github/check-jira-id/rust",
 
