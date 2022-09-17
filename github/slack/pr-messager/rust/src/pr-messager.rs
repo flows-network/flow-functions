@@ -16,7 +16,7 @@ pub fn _run(s: String) -> Result<String, String> {
         "Pull request #{} {} was {} in {}",
         pull_request.number,
         pull_request.title,
+        payload.get_action()?,
         pull_request.html_url,
-        payload.get_action()?
     ))
 }
