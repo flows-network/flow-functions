@@ -1,6 +1,7 @@
 [workspace]
 members = [
-    "github/slack/getting-started/rust",
+    "getting-started/rust",
+
     "github/slack/star-messager/rust",
     "github/slack/issue-notifier/rust",
     "github/slack/commit-syncer/rust",
