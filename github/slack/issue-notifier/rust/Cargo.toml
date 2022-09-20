@@ -8,6 +8,6 @@ path = "src/issue-notifier.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
-connector-dsi = { git="https://github.com/second-state/connector-dsi" }
+flows-connector-dsi = { version = "0.1.0" }
 wasmedge-bindgen = "0.4.0"
 wasmedge-bindgen-macro = "0.4.0"

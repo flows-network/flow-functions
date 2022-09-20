@@ -1,5 +1,5 @@
 use wasmedge_bindgen_macro::*;
-use connector_dsi::github::{inbound, outbound};
+use flows_connector_dsi::github::{inbound, outbound};
 
 #[wasmedge_bindgen]
 pub fn run(s: String) -> Result<String, String> {

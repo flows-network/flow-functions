@@ -1,7 +1,7 @@
 #[allow(unused_imports)]
 use wasmedge_bindgen::*;
 use wasmedge_bindgen_macro::*;
-use connector_dsi::github::inbound;
+use flows_connector_dsi::github::inbound;
 
 #[wasmedge_bindgen]
 pub fn run(s: String) -> Result<String, String> {

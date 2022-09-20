@@ -1,4 +1,4 @@
-use connector_dsi::{github::inbound, sendgrid::outbound};
+use flows_connector_dsi::{github::inbound, sendgrid::outbound};
 use wasmedge_bindgen_macro::*;
 
 #[wasmedge_bindgen]
