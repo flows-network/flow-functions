@@ -49,5 +49,3 @@
   cargo build -p <package-name> --target wasm32-wasi --release # Build specified package
   cargo build --workspace --target wasm32-wasi --release       # Build all packages
   ```
-
-

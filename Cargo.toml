@@ -1,6 +1,7 @@
 [workspace]
 members = [
-    "github/slack/getting-started/rust",
+    "getting-started/rust",
+
     "github/slack/star-messager/rust",
     "github/slack/issue-notifier/rust",
     "github/slack/commit-syncer/rust",
@@ -32,13 +33,9 @@ members = [
     "github/github/issue-pr-naive-bot/rust",
     "github/github/issue-review-notifier/rust",
 
-    "github/github/check-jira-id/rust",
-
-
     "slack/slack/calculator/rust",
     "slack/slack/reverse/rust",
     "slack/slack/lucky-draw/rust",
-
     "slack/slack/welcome/rust",
 
     "slack/cloudinary/upload/rust",

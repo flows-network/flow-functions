@@ -1,39 +1,22 @@
-#[allow(unused_imports)]
-use serde_json::Value;
-use wasmedge_bindgen::*;
+use flows_connector_dsi::github::inbound;
 use wasmedge_bindgen_macro::*;
 
 #[wasmedge_bindgen]
 pub fn run(s: String) -> Result<String, String> {
-    let res: Value = match serde_json::from_str(s.as_str()) {
-        Ok(s) => s,
-        Err(e) => {
-            return Err(format!(
-                "GitHub webhook payloads parsing failed: {}.",
-                e.to_string()
-            ))
-        }
-    };
+    #[allow(unused_imports)]
+    use wasmedge_bindgen::*;
+    _run(s)
+}
 
-    let action = match res["action"].as_str() {
-        Some(action) => action,
-        None => return Err("Parse action failed.".to_string()),
-    };
+pub fn _run(s: String) -> Result<String, String> {
+    let payload = inbound(s)?;
+    let pull_request = payload.get_pull_request()?;
 
-    let number = match res["number"].as_u64() {
-        Some(n) => n,
-        None => return Err("Parse pull request number failed.".to_string()),
-    };
-
-    let title = match res["pull_request"]["title"].as_str() {
-        Some(t) => t,
-        None => return Err("Parse pull request title failed.".to_string()),
-    };
-
-    let repo_url = match res["repository"]["clone_url"].as_str() {
-        Some(t) => t,
-        None => return Err("Parse repository url failed.".to_string()),
-    };
-
-    Ok(format!("your pr no:【{}】 \"{}\" to github repository {} was {}",number,title,repo_url,action))
+    Ok(format!(
+        "Pull request #{} {} was {} in {}",
+        pull_request.number,
+        pull_request.title,
+        payload.get_action()?,
+        pull_request.html_url,
+    ))
 }
