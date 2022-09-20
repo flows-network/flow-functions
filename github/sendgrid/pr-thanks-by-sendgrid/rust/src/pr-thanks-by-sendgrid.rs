@@ -12,17 +12,14 @@ pub fn run(s: String) -> Result<String, String> {
 fn _run(s: String) -> Result<String, String> {
     let payload = inbound(s)?;
     
-    match payload.pull_request {
-        None => { return Err("no pull request found".to_string()); },
-        Some(_) => {},
+    payload.get_pull_request()?;
+
+    if payload.get_action()? != "opened" {
+        return Ok(String::new());
     }
-
-    let mut subject: &str = "";
-    let mut content = String::new();
-
-    if payload.action.unwrap() == "opened" {
-        subject = "Thank you for contributing to this repository";
-        content = format!(
+    
+    let subject = "Thank you for contributing to this repository";
+    let content = format!(
             r#"
 Hi {}, <br/>
 
@@ -30,7 +27,7 @@ Welcome to the {} community, thank you for your contribution!
                         "#,
             payload.sender.login, payload.repository.unwrap().full_name
         );
-    }
+    
 
     Ok(json!([{
                             "personalizations": [
