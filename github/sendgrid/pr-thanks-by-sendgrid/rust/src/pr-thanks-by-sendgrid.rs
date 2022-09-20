@@ -11,7 +11,11 @@ pub fn run(s: String) -> Result<String, String> {
 
 fn _run(s: String) -> Result<String, String> {
     let payload = inbound(s)?;
-    let pull_request = payload.get_pull_request()?;
+    
+    match payload.pull_request {
+        None => { return Err("no pull request found".to_string()); },
+        Some(_) => {},
+    }
 
     let mut subject: &str = "";
     let mut content = String::new();
