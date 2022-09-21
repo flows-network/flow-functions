@@ -1,5 +1,5 @@
 use serde_json::{Value};
-use std::collections::{HashMap, HashSet};
+use std::collections::{ HashSet};
 use wasmedge_bindgen_macro::*;
 
 #[cfg(target_family = "wasm")]
