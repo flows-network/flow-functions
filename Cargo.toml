@@ -23,6 +23,7 @@ members = [
     "github/gmail/pr-thanks-by-gmail/rust",
 
     "github/sendgrid/star-thanks-by-sendgrid/rust",
+    "github/sendgrid/pr-thanks-by-sendgrid/rust",
 
     "github/notion/assign-notifier/rust",
 
