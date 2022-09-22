@@ -5,7 +5,6 @@ edition = "2021"
 
 [lib]
 path = "src/commit-notifier.rs"
-crate-type = ["cdylib"]
 
 [dependencies]
 flows-connector-dsi = "0.1.3"
