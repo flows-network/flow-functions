@@ -8,6 +8,6 @@ path = "src/getting-started.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
-flows-connector-dsi = { version = "0.1.2" }
+flows-connector-dsi = { version = "0.1" }
 wasmedge-bindgen = "0.4.0"
 wasmedge-bindgen-macro = "0.4.0"
