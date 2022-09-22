@@ -8,8 +8,7 @@ path = "src/issue-creator.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
+flows-connector-dsi = { version = "0.1.2" }
 wasmedge-bindgen = "0.4.0"
 wasmedge-bindgen-macro = "0.4.0"
 
