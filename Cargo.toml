@@ -36,6 +36,7 @@ members = [
     "github/github/auto-issue-comment/rust",
     "github/github/issue-pr-naive-bot/rust",
     "github/github/issue-review-notifier/rust",
+    "github/github/check-jira-id/rust",
 
     "slack/slack/calculator/rust",
     "slack/slack/reverse/rust",
