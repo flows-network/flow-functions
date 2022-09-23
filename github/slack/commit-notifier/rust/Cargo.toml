@@ -1,0 +1,12 @@
+[package]
+name = "commit-notifier"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/commit-notifier.rs"
+
+[dependencies]
+flows-connector-dsi = "0.1"
+wasmedge-bindgen = "0.4.0"
+wasmedge-bindgen-macro = "0.4.0"
