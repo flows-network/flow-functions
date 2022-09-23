@@ -31,7 +31,7 @@ Hi {}, <br/>
 
 Welcome to the {} community, thank you for your contribution!"#,
             payload.sender.login,
-            payload.repository.unwrap().full_name
+            payload.get_repository()?.full_name
         ))
         .build()
 }

@@ -1,66 +1,42 @@
-use serde_json::{Value};
-use std::collections::{ HashSet};
+use flows_connector_dsi::github::{inbound, outbound};
 use wasmedge_bindgen_macro::*;
 
-#[cfg(target_family = "wasm")]
 #[wasmedge_bindgen]
-pub fn run(s: String) -> String {
+pub fn run(s: String) -> Result<String, String> {
     #[allow(unused_imports)]
     use wasmedge_bindgen::*;
     _run(s)
 }
 
-fn _run(s: String) -> String {
-    let payload: Value = serde_json::from_str(&s).unwrap();
-    let sender = payload.get("sender").unwrap()["login"].as_str().unwrap();
-    let issue = payload.get("issue").unwrap();
-    let number = issue.get("number").unwrap().as_i64().unwrap();
-    let title = issue["title"].as_str().unwrap().to_string();
+fn _run(s: String) -> Result<String, String> {
+    let payload = inbound(s)?;
+    let issue = payload.get_issue()?;
 
-    let mut is_compliant = false;
-    let mut bodies = Vec::<String>::new();
-    let mut assignees = HashSet::new();
+    let mut assignees = Vec::new();
+    let mut body = String::new();
 
-    let title_as_tags = title.trim().split_whitespace().map(|word| {
-        word.to_ascii_lowercase().chars().filter(|&c| c.is_alphanumeric()).collect::<String>()
-    }).collect::<HashSet<String>>();
-
-
-    for tag in title_as_tags {
-        match tag.as_str() {
-            "platforms" | "ci" => {
-                is_compliant = true;
-                assignees.insert("jaykchen");
-            },
-            "docs" => {
-                is_compliant = true;
-                assignees.insert("alabulei1");
-            },
-            _ => {},
-        };
-    }
-    let assignees_str = assignees.iter().map(|person| {
-        let mut name = String::from("@");
-        name.push_str(person);
-        name
-    }).collect::<Vec<String>>().join(" ");
-
-    if is_compliant {
-        bodies.push(format!(
-            "Thank you @{} for submitting this issue! It has been assigned to {}",
-            sender,
-            assignees_str
-        ));
+    if issue.title.contains("platforms") || issue.title.contains("ci") {
+        assignees.push("jaykchen");
+    } else if issue.title.contains("docs") {
+        assignees.push("alabulei1");
     } else {
-        bodies.push(format!("This issue title is not compliant with our community rules. @{}, please
-     update it. Valid types: docs, ci, platforms.", sender));
+        body = format!(
+            "This issue title is not compliant with our community rules. @{}, please
+        update it. Valid types: docs, ci, platforms.",
+            payload.sender.login
+        );
     }
 
-
-    serde_json::json!({
-    "issue_number": number,
-    "body": bodies.join("\n"),
-    "assignees": assignees,
-    }).to_string()
+    outbound::modify_issue(issue.number)
+        .body(if body.is_empty() {
+            format!(
+                "Thank you @{} for submitting this issue! It has been assigned to @{}",
+                payload.sender.login,
+                assignees.join(", @"),
+            )
+        } else {
+            body
+        })
+        .assignees(assignees)
+        .build()
 }
-

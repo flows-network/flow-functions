@@ -8,6 +8,6 @@ path = "src/branch-tag-created.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
-flows-connector-dsi = { version = "0.1.0" }
+flows-connector-dsi = { version = "0.1" }
 wasmedge-bindgen = "0.4.0"
 wasmedge-bindgen-macro = "0.4.0"
