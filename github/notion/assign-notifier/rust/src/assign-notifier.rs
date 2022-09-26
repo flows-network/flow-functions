@@ -16,6 +16,6 @@ pub fn _run(s: String) -> Result<String, String> {
     }
 
     outbound()
-        .page("Name", &payload.get_issue()?.html_url)
+        .property("Name", &payload.get_issue()?.html_url)
         .build()
 }
