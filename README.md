@@ -6,7 +6,7 @@ Automate workflows with CODE!
 
 ## Usage
 
-This repo consists of many kinds of functions to automate your workflow across multipule SaaS with the flows.network platform. 
+This repo consists of many kinds of functions to automate your workflows across multipule SaaS with the [flows.network](https://flows.network/) platform. 
 
 To use these functions, make sure you have an account on [flows.network](https://flows.network/). And then, check out our [Get Started](https://docs.flows.network/docs/category/getting-started) guide!
 
