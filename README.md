@@ -1,14 +1,21 @@
 # Functions in Rust and JavaScript for flows.network
 
-Automate workflows with CODE!
-
 ![badge](https://github.com/second-state/flow-functions/workflows/build/badge.svg?style=flat-square)
+
+## Introduction
+
+This repo consists of many functions to automate your workflows across multiple SaaS with the [flows.network](https://flows.network/) platform. 
+
+Since flows.network is programmable, you could write code to transform data between two SaaS based on your business needs as a developer.
+
+The flow functions could be written in Rust and JavaScript.
+
 
 ## Usage
 
-This repo consists of many kinds of functions to automate your workflows across multipule SaaS with the [flows.network](https://flows.network/) platform. 
+Please refer to our [Get Started](https://docs.flows.network/docs/category/getting-started) guide to automating workflows with the functions.
 
-To use these functions, make sure you have an account on [flows.network](https://flows.network/). And then, check out our [Get Started](https://docs.flows.network/docs/category/getting-started) guide!
+The following table shows the usage of each package. Remember to select the corresponding inbound and outbound connectors on the [flows.network](https://flows.network/) platform.
 
 | Package Name                                                             | Inbound | Outbound | Description                                                                                                                                                                                                                                                                                                                        |
 |--------------------------------------------------------------------------| ------- | -------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -21,8 +28,8 @@ To use these functions, make sure you have an account on [flows.network](https:/
 | [discussion-comment-notifier](github/slack/discussion-comment-notifier/) | GitHub | Slack | Send a message to Slack when a comment in a dicussion is created, edited, or deleted                                                                                                                                                                                                                                               |
 | [fork-notifier](github/slack/fork-notifier/)                             | GitHub | Slack | Send a message to Slack when a user forks a repository                                                                                                                                                                                                                                                                             |
 | [issue-notifier](github/slack/issue-notifier/)                           | GitHub | Slack | Send a message to Slack when a GitHub issue is opened, edited, or assigned                                                                                                                                                                                                                                                         |
-| [issue-review-notifier](github/github/issue-review-notifier/)            | GitHub | GitHub | Assign an issue to specified team member when an issue is created or comment on the issue to remind the creator in case of non-compliance in issue titling convention                                                                                                                                                              |
-| [issue-pr-naive-bot](github/github/issue-pr-naive-bot/)               | GitHub | GitHub | A multi-purpose script that performs different tasks when deployed on certain inbound/oubound pairs. i.e. it assigns labels, assignees, makes comment when a GitHub issue is created, or a pull request is created                                                                                                                 |
+| [issue-review-notifier](github/github/issue-review-notifier/)            | GitHub | GitHub | Assign an issue to a specified team member when an issue is created or comment on the issue to remind the creator in case of non-compliance with issue titling convention                                                                                                                                                              |
+| [issue-pr-naive-bot](github/github/issue-pr-naive-bot/)               | GitHub | GitHub | A multi-purpose script that performs different tasks when deployed on certain inbound/outbound pairs. i.e. it assigns labels, assignees, makes comment when a GitHub issue is created, or a pull request is created                                                                                                                 |
 | [label-notifier](github/slack/label-notifier/)                           | GitHub | Slack | Send a message to Slack when a label is created, edited, or deleted                                                                                                                                                                                                                                                                |
 | [pr-messager](github/slack/pr-messager/)                                 | GitHub | Slack | Send a message to Slack when an activity related to a pull request was performed. Can be one of: assigned, auto_merge_disabled, auto_merge_enabled, closed, converted_to_draft, edited, labeled, locked, opened, ready_for_review, reopened, review_request_removed, review_requested, synchronize,unassigned, unlabeled, unlocked |
 | [pr-review-notifier](github/slack/pr-review-notifier/)                   | GitHub | Slack | Send a message to Slack when a pull request review is submitted, edited, or dismissed                                                                                                                                                                                                                                              |
@@ -50,9 +57,13 @@ To use these functions, make sure you have an account on [flows.network](https:/
   rustup target add wasm32-wasi
   ```
 
-* Build packeage
+* Build package
 
   ```shell
   cargo build -p <package-name> --target wasm32-wasi --release # Build specified package
   cargo build --workspace --target wasm32-wasi --release       # Build all packages
   ```
+
+## Contributions
+
+flows.network is driven by the community. You are welcome to contribute and share your functions with the community. So don't hesitate to create a PR when you have some ideas to share.
