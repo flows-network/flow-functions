@@ -1,8 +1,14 @@
-# WasmHaiku Flow Functions
+# Functions in Rust and JavaScript for flows.network
+
+Automate workflows with CODE!
 
 ![badge](https://github.com/second-state/flow-functions/workflows/build/badge.svg?style=flat-square)
 
 ## Usage
+
+This repo consists of many kinds of functions to automate your workflow across multipule SaaS with the flows.network platform. 
+
+To use these functions, make sure you have an account on [flows.network](https://flows.network/). And then, check out our [Get Started](https://docs.flows.network/docs/category/getting-started) guide!
 
 | Package Name                                                             | Inbound | Outbound | Description                                                                                                                                                                                                                                                                                                                        |
 |--------------------------------------------------------------------------| ------- | -------- |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
