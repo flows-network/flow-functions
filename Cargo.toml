@@ -49,5 +49,7 @@ members = [
 
     "slack/github/issue-creator/rust",
 
+    "slack/notion/add-todo-from-slack/rust",
+
     "cloudinary/slack/image-rotator/rust",
 ]
