@@ -10,6 +10,11 @@ pub fn run(s: String) -> Result<String, String> {
 
 pub fn _run(s: String) -> Result<String, String> {
     let payload = inbound(s)?;
+
+    if payload.get_action()? != "opened" {
+        return Ok(String::new());
+    }
+
     let pull_request = payload.get_pull_request()?;
 
     outbound::create_issue(&pull_request.title)
