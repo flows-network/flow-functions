@@ -22,8 +22,7 @@ pub fn _run(s: String) -> Result<String, String> {
             pull_request
                 .body
                 .as_ref()
-                .map(|b| vec![b.to_owned()])
-                .unwrap_or_default(),
+                .unwrap_or(&"No description.".to_string()),
         )
         .transition(&pull_request.state)
         .build()
