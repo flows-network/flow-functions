@@ -24,6 +24,5 @@ pub fn _run(s: String) -> Result<String, String> {
                 .as_ref()
                 .unwrap_or(&"No description.".to_string()),
         )
-        .transition(&pull_request.state)
         .build()
 }
