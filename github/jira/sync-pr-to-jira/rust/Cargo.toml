@@ -1,10 +1,10 @@
 [package]
-name = "monday-pr-status-updater"
+name = "sync-pr-to-jira"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-path = "src/pr-status-updater.rs"
+path = "src/sync-pr-to-jira.rs"
 crate-type = ["cdylib"]
 
 [dependencies]

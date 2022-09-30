@@ -4,6 +4,9 @@ members = [
 
     "github/monday/pr-status-updater/rust",
 
+    "github/jira/pr-status-updater/rust",
+    "github/jira/sync-pr-to-jira/rust",
+
     "github/slack/star-messager/rust",
     "github/slack/issue-notifier/rust",
     "github/slack/commit-syncer/rust",
