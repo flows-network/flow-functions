@@ -24,6 +24,7 @@ members = [
     "github/slack/release-notifier/rust",
     "github/slack/repository-notifier/rust",
     "github/slack/workflow-job-notifier/rust",
+    "github/slack/issue-creator-respond/rust",
 
     "github/gmail/star-thanks-by-gmail/rust",
     "github/gmail/pr-thanks-by-gmail/rust",
