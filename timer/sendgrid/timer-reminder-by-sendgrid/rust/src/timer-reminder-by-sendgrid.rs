@@ -18,8 +18,6 @@ pub fn _run(s: String) -> Result<String, String> {
             r#"
 Hi,<br/>
 
-Please be kindly reminded that the monthly meeting is scheduled at 10am on 11, Oct."#,
-        )
+Please be kindly reminded that the monthly meeting is scheduled at 10am on 11, Oct."#)
         .build()
 }
-
