@@ -55,4 +55,6 @@ members = [
     "slack/notion/add-todo-from-slack/rust",
 
     "cloudinary/slack/image-rotator/rust",
+
+    "timer/sendgrid/timer-reminder-by-sendgrid/rust",
 ]
