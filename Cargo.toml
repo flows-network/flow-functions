@@ -58,4 +58,6 @@ members = [
     "cloudinary/slack/image-rotator/rust",
 
     "timer/sendgrid/timer-reminder-by-sendgrid/rust",
+    
+    "jira/slack/comment-notifier/rust",
 ]
