@@ -46,6 +46,7 @@ members = [
     "slack/slack/reverse/rust",
     "slack/slack/lucky-draw/rust",
     "slack/slack/welcome/rust",
+    "slack/slack/weather/rust",
 
     "slack/cloudinary/upload/rust",
 
@@ -58,6 +59,6 @@ members = [
     "cloudinary/slack/image-rotator/rust",
 
     "timer/sendgrid/timer-reminder-by-sendgrid/rust",
-    
+
     "jira/slack/comment-notifier/rust",
 ]
