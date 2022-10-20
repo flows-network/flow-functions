@@ -1,0 +1,17 @@
+[package]
+name = "dco-checker"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/dco-checker.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+flows-connector-dsi = { version = "0.1" }
+http_req_wasi = "0.10.1"
+lazy_static = "1.4.0"
+regex = "1.6.0"
+serde_json = "1.0.87"
+wasmedge-bindgen = "0.4.0"
+wasmedge-bindgen-macro = "0.4.0"
