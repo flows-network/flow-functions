@@ -2,6 +2,8 @@
 members = [
     "getting-started/rust",
 
+    "discord/discord/ping/rust",
+
     "github/monday/pr-status-updater/rust",
 
     "github/jira/pr-status-updater/rust",
