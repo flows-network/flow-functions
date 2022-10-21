@@ -11,4 +11,3 @@ crate-type = ["cdylib"]
 flows-connector-dsi = { version = "0.1" }
 wasmedge-bindgen = "0.4.0"
 wasmedge-bindgen-macro = "0.4.0"
-
