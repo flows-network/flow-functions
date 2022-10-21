@@ -1,0 +1,15 @@
+[package]
+name = "discord-welcome"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/welcome.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+#flows-connector-dsi = { version = "0.1" }
+flows-connector-dsi = { git = "https://github.com/flows-network/flows-connector-dsi" }
+wasmedge-bindgen = "0.4.0"
+wasmedge-bindgen-macro = "0.4.0"
+
