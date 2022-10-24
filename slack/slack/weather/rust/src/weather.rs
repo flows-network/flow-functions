@@ -59,3 +59,4 @@ Wind Speed: {} km/h"#,
         main_weather, low, high, wind_speed
     )
 }
+
