@@ -1,12 +1,7 @@
 (s) => {
-    let x = JSON.parse(s);
-    let html_url = "";
-    let body = "";
-    switch (x["action"]) {
-        case "created":
-            html_url = x["comment"]["html_url"];
-            body = x["comment"]["body"]
-            break;
+    let payload = JSON.parse(s);
+    if (payload["action"] === "created") {
+        return payload["comment"]["body"].replace(/(?:\\[rn])+/g, "\n") + "\n"
+            + payload["comment"]["html_url"];
     }
-    return body.replace(/(?:\\[rn])+/g, "\n") + "\n" + html_url;
 }

@@ -2,6 +2,9 @@
 members = [
     "getting-started/rust",
 
+    "discord/discord/ping/rust",
+    "discord/discord/welcome/rust",
+
     "github/monday/pr-status-updater/rust",
 
     "github/jira/pr-status-updater/rust",
@@ -41,6 +44,7 @@ members = [
     "github/github/issue-pr-naive-bot/rust",
     "github/github/issue-review-notifier/rust",
     "github/github/check-jira-id/rust",
+    "github/github/pr-reviewer/rust",
 
     "slack/slack/calculator/rust",
     "slack/slack/reverse/rust",

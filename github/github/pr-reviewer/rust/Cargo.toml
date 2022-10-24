@@ -1,0 +1,15 @@
+[package]
+name = "pr-reviewer"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/pr-reviewer.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+flows-connector-dsi = { version = "0.1" }
+http_req_wasi = "0.10.1"
+serde_json = "1.0.86"
+wasmedge-bindgen = "0.4.0"
+wasmedge-bindgen-macro = "0.4.0"
