@@ -1,7 +1,7 @@
 use flows_connector_dsi::{github::inbound, sendgrid::outbound};
-use wasmedge_bindgen_macro::*;
-use rand::thread_rng;
 use rand::seq::SliceRandom;
+use rand::thread_rng;
+use wasmedge_bindgen_macro::*;
 
 #[wasmedge_bindgen]
 pub fn run(s: String) -> Result<String, String> {
@@ -12,7 +12,16 @@ pub fn run(s: String) -> Result<String, String> {
 
 pub fn _run(s: String) -> Result<String, String> {
     let payload = inbound(s)?;
-    let email = match payload.starred_at.as_ref().and(payload.sender.email.as_ref()) {
+
+    if payload.get_action()? != "created" {
+        return Ok(String::new());
+    }
+
+    let email = match payload
+        .starred_at
+        .as_ref()
+        .and(payload.sender.email.as_ref())
+    {
         Some(e) => e,
         None => return Ok(String::new()),
     };
@@ -21,9 +30,12 @@ pub fn _run(s: String) -> Result<String, String> {
     let repo = &payload.get_repository()?.full_name;
 
     let body = pick_question();
-    if payload.get_action()? == "created" {
-        outbound(vec![email]).subject("Thanks for your star! Test your knowledge with the \
-        question in email, win Swagger from WasmEdge!").content(format!(
+    outbound(vec![email])
+        .subject(
+            "Thanks for your star! Test your knowledge with the \
+question in email, win Swagger from WasmEdge!",
+        )
+        .content(format!(
             r#"
 Hi {}!<br/>
 
@@ -33,12 +45,9 @@ Welcome to the {} community! Here comes the question:.<br/>
 Please type your answer to the question in the first line of your reply.<br/>
 "#,
             sender, repo, body
-        )).build()
-    } else {
-        Err("".to_string())
-    }
+        ))
+        .build()
 }
-
 
 pub fn pick_question() -> String {
     let q_1: &str = r#"Which foundation does WasmEdge belong to?
@@ -89,7 +98,7 @@ C Sel4
 D centos 7
 "#;
 
-    let q_9: &str = r#"What’s the latest version of WasmEdge
+    let q_9: &str = r#"What's the latest version of WasmEdge
 A 0.10.0
 B 0.11.0
 C 0.11.1
@@ -103,10 +112,6 @@ C 2020
 D2021
 "#;
 
-
     let arr = [q_1, q_2, q_3, q_4, q_5, q_6, q_7, q_8, q_9, q_10];
-    let mut rng = thread_rng();
-   let res = arr.choose(&mut rng).unwrap().to_string();
-    println!("{}",res);
-    res
+    arr.choose(&mut thread_rng()).unwrap().to_string()
 }
