@@ -1,0 +1,14 @@
+[package]
+name = "star-send-question"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/star-send-question.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+rand="0.8.5"
+flows-connector-dsi = { version = "0.1" }
+wasmedge-bindgen = "0.4.0"
+wasmedge-bindgen-macro = "0.4.0"
