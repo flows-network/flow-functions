@@ -12,11 +12,13 @@ pub fn run(s: String) -> Result<String, String> {
 }
 
 pub fn _run(s: String) -> Result<String, String> {
-    if s.trim().is_empty() {
-        return Err("Wrong location submitted".to_string());
+    let city = match s.split_once(" ") {
+        Some((command, city)) if command.eq("/w") || command.eq("/weather") => city,
+        _ => return Ok(String::new()),
     }
+    .trim();
 
-    get_weather(&s).map(|w| {
+    get_weather(city).map(|w| {
         format!(
             "Today: {},
 Low temperature: {} °C,
@@ -25,9 +27,9 @@ Wind Speed: {} km/h",
             w.weather
                 .first()
                 .unwrap_or(&Weather {
-                    name: "Unknown".to_string()
+                    main: "Unknown".to_string()
                 })
-                .name,
+                .main,
             w.main.temp_min as i32,
             w.main.temp_max as i32,
             w.wind.speed as i32
@@ -44,7 +46,7 @@ struct ApiResult {
 
 #[derive(Deserialize)]
 struct Weather {
-    name: String,
+    main: String,
 }
 
 #[derive(Deserialize)]
@@ -58,7 +60,7 @@ struct Wind {
     speed: f64,
 }
 
-fn get_weather(city: &String) -> Result<ApiResult, String> {
+fn get_weather(city: &str) -> Result<ApiResult, String> {
     let mut writer = Vec::new();
     let query_str = format!(
         "https://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid={API_KEY}"
