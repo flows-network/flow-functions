@@ -33,11 +33,15 @@ pub fn _run(s: String) -> Result<String, String> {
             "Thanks for your star! Get your WasmEdge SWAG by answering a simple question.",
             )
             .content(format!( r#"Hi {}!<br/>
-
-Welcome to the {} community! Here comes the question:.<br/>
+Welcome to the {} community!<br/>
+<br/>
+To learn more about how to create a WasmEdge microservice using Docker Desktop and Docker Engine tools, please check out our demo app<br/>
+http://github.com/second-state/microservice-rust-mysql
+<br/><br/>
+If you are in Detorit for KubeCon this week, here comes the trivia question for our SWAG giveway:<br/>
 {}
-
-Bring your answer to the WasmEdge kiosk at KubeCon + CloudNativeCon NA 2022 to claim your WasmEdge SWAG.<br/>
+<br/><br/>
+Bring this email to the WasmEdge kiosk at KubeCon + CloudNativeCon NA 2022 and answer the question to claim your WasmEdge SWAG!<br/>
 "#, sender, repo, body
             ))
             .build()
