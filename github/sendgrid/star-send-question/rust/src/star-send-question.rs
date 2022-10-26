@@ -41,7 +41,7 @@ Hi {}!<br/>
 Welcome to the {} community! Here comes the question:.<br/>
 {}
 
-Bring the email to  WasmEdge kiosk at KubeCon and CloudNativeCon NA 2022 & tell us the answer.<br/>
+Bring the email to  WasmEdge kiosk at KubeCon and CloudNativeCon NA 2022 & tell us the answer to claim your WasmEdge SWAG.<br/>
 "#,
             sender, repo, body
         ))
