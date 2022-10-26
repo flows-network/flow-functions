@@ -37,7 +37,7 @@ pub fn _run(s: String) -> Result<String, String> {
 Welcome to the {} community! Here comes the question:.<br/>
 {}
 
-Bring the email to  WasmEdge kiosk at KubeCon and CloudNativeCon NA 2022 & tell us the answer to claim your WasmEdge SWAG.<br/>
+Bring your answer to the WasmEdge kiosk at KubeCon + CloudNativeCon NA 2022 to claim your WasmEdge SWAG.<br/>
 "#, sender, repo, body
             ))
             .build()
