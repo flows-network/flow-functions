@@ -32,8 +32,7 @@ pub fn _run(s: String) -> Result<String, String> {
     let body = pick_question();
     outbound(vec![email])
         .subject(
-            "Thanks for your star! Test your knowledge with the \
-question in email, win Swagger from WasmEdge!",
+            "Thanks for your star! Get your WasmEdge SWAG by answering a simple question.",
         )
         .content(format!(
             r#"
@@ -42,7 +41,7 @@ Hi {}!<br/>
 Welcome to the {} community! Here comes the question:.<br/>
 {}
 
-Please type your answer to the question in the first line of your reply.<br/>
+Bring the email to  WasmEdge kiosk at KubeCon and CloudNativeCon NA 2022 & tell us the answer.<br/>
 "#,
             sender, repo, body
         ))
