@@ -13,10 +13,6 @@ pub fn run(s: String) -> Result<String, String> {
 pub fn _run(s: String) -> Result<String, String> {
     let payload = inbound(s)?;
 
-    if payload.get_action()? != "created" {
-        return Ok(String::new());
-    }
-
     let email = match payload
         .starred_at
         .as_ref()
@@ -29,23 +25,37 @@ pub fn _run(s: String) -> Result<String, String> {
     let sender = &payload.sender.login;
     let repo = &payload.get_repository()?.full_name;
 
-    let body = pick_question();
-    outbound(vec![email])
-        .subject(
+    if payload.get_action()? == "created" {
+        let body = pick_question();
+
+        outbound(vec![email])
+            .subject(
             "Thanks for your star! Get your WasmEdge SWAG by answering a simple question.",
-        )
-        .content(format!(
-            r#"
-Hi {}!<br/>
+            )
+            .content(format!( r#"Hi {}!<br/>
 
 Welcome to the {} community! Here comes the question:.<br/>
 {}
 
 Bring the email to  WasmEdge kiosk at KubeCon and CloudNativeCon NA 2022 & tell us the answer to claim your WasmEdge SWAG.<br/>
-"#,
-            sender, repo, body
-        ))
-        .build()
+"#, sender, repo, body
+            ))
+            .build()
+    } else {
+        outbound(vec![email])
+            .subject(" 😿 Sorry to lose you")
+            .content(format!(
+                r#"
+Hi {},<br/>
+
+Sorry to see you go! We value your feedback and suggestions. Please do let us know how we might improve the repository {} (just reply to this email). We wish to see your around in the community!<br/>
+
+Best Regards,<br/>
+Maintainers at repository {}"#,
+                sender, repo, repo
+            ))
+            .build()
+    }
 }
 
 pub fn pick_question() -> String {
