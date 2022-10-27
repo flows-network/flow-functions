@@ -26,18 +26,25 @@ pub fn _run(s: String) -> Result<String, String> {
 
         outbound(vec![email])
             .subject(
-            "Thanks for your star! Get your WasmEdge SWAG by answering a simple question.",
+            "Thanks for your star! Let's get started with WebAssembly on the server",
             )
             .content(format!( r#"Hi {}!<br/>
-Welcome to the {} community!<br/>
+Welcome to the {} community! Here are some resources to get you started. Please feel free to reach out to us on GitHub or Discord if you have questions or encounter any issues. Happy hacking!<br/>
 <br/>
-To learn more about how to create a WasmEdge microservice using Docker Desktop and Docker Engine tools, please check out our demo app<br/>
-http://github.com/second-state/microservice-rust-mysql
+Please refer to our quick start guides to install WasmEdge and run your Wasm apps:<br/>
+https://wasmedge.org/book/en/quick_start.html
 <br/><br/>
-If you are in Detorit for KubeCon this week, here comes the trivia question for our SWAG giveway:<br/>
+The repo below contains a complete demo app in WasmEdge. It is a microservice with a web frontend and a MySQL database backend.<br/>
+https://github.com/second-state/microservice-rust-mysql
+<br/><br/>
+WasmEdge has collaborated with Docker to create a seamless developer experience for building, sharing, and running applications with mixed Linux containers and Wasm sandboxes. You can read Docker's announcement below, and try the above microservice demo in Docker Desktop or Docker CLI!<br/>
+https://www.docker.com/blog/docker-wasm-technical-preview/               
+<br/><br/>
+Finally, If you are in Detorit for KubeCon this week, please come by our kiosk in the CNCF projects area and say hi!
+<br/><br/>
+PS. Do you know ...<br/>
 {}
-<br/><br/>
-Bring this email to the WasmEdge kiosk at KubeCon + CloudNativeCon NA 2022 and answer the question to claim your WasmEdge SWAG!<br/>
+<br/>
 "#, sender, repo, body
             ))
             .build()
