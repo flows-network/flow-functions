@@ -10,11 +10,7 @@ pub fn run(s: String) -> Result<String, String> {
 
 pub fn _run(s: String) -> Result<String, String> {
     let payload = inbound(s)?;
-    let email = match payload
-        .starred_at
-        .as_ref()
-        .and(payload.sender.email.as_ref())
-    {
+    let email = match payload.sender.email.as_ref() {
         Some(e) => e,
         None => return Ok(String::new()),
     };
