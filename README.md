@@ -1,4 +1,4 @@
-# Functions in Rust and JavaScript for flows.network
+# Functions in Rust and JavaScript for flows.network1
 
 ![badge](https://github.com/second-state/flow-functions/workflows/build/badge.svg?style=flat-square)
 
