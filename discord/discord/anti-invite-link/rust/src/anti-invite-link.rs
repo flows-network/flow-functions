@@ -8,7 +8,7 @@ pub fn run(s: String) -> Result<String, String> {
     let message = inbound(s)?;
 
     if message.content.contains("discord.gg") {
-        outbound::ban(message.author.id, "Send group invite link", 0).build()
+        outbound::ban(message.author.id, "Send group invite link", 604800).build()
     } else {
         Ok(String::new())
     }
