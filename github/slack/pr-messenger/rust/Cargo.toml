@@ -1,10 +1,10 @@
 [package]
-name = "star-messager"
+name = "pr-messenger"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-path = "src/star-messager.rs"
+path = "src/pr-messenger.rs"
 crate-type = ["cdylib"]
 
 [dependencies]

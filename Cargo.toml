@@ -11,10 +11,10 @@ members = [
     "github/jira/pr-status-updater/rust",
     "github/jira/sync-pr-to-jira/rust",
 
-    "github/slack/star-messager/rust",
+    "github/slack/star-messenger/rust",
     "github/slack/issue-notifier/rust",
     "github/slack/commit-syncer/rust",
-    "github/slack/pr-messager/rust",
+    "github/slack/pr-messenger/rust",
     "github/slack/pr-review-notifier/rust",
     "github/slack/discussion-comment-notifier/rust",
     "github/slack/pr-review-comment-notifier/rust",

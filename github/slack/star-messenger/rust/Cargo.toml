@@ -1,10 +1,10 @@
 [package]
-name = "pr-messager"
+name = "slack-star-messenger"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-path = "src/pr-messager.rs"
+path = "src/star-messenger.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
