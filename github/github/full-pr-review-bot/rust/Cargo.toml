@@ -1,0 +1,15 @@
+[package]
+name = "full-pr-review-bot"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/full-pr-review-bot.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+flows-connector-dsi = { version = "0.1" }
+lazy_static = "1.4.0"
+serde_json = "1.0.87"
+wasmedge-bindgen = "0.4.0"
+wasmedge-bindgen-macro = "0.4.0"

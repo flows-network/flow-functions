@@ -47,6 +47,7 @@ members = [
     "github/github/issue-review-notifier/rust",
     "github/github/check-jira-id/rust",
     "github/github/pr-reviewer/rust",
+    "github/github/full-pr-review-bot/rust",
 
     "slack/slack/calculator/rust",
     "slack/slack/reverse/rust",
