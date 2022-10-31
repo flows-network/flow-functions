@@ -4,6 +4,7 @@ members = [
 
     "discord/discord/ping/rust",
     "discord/discord/welcome/rust",
+    "discord/discord/anti-invite-link/rust",
 
     "github/monday/pr-status-updater/rust",
 
