@@ -33,7 +33,7 @@ fn _run(s: String) -> Result<String, String> {
                     .header("Accept", "application/vnd.github+json")
                     .header("Authorization", &format!("Bearer {}", TOKEN))
                     .send(&mut writer)
-                    .map_err(|e| format!("request faild: {}", e))?;
+                    .map_err(|e| format!("request failed: {}", e))?;
 
                 let text = String::from_utf8_lossy(&writer);
                 let json: Vec<serde_json::Value> = serde_json::from_str(&text)
