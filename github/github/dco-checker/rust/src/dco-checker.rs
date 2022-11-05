@@ -1,7 +1,8 @@
-use std::env;
-
 use flows_connector_dsi::github::{inbound, outbound};
-use http_req::{request::Request, response::Headers, uri::Uri};
+use http_req::{
+    request::{Method, Request},
+    uri::Uri,
+};
 use lazy_static::lazy_static;
 use regex::Regex;
 use wasmedge_bindgen_macro::*;
@@ -13,10 +14,11 @@ pub fn run(s: String) -> Result<String, String> {
     _run(s)
 }
 
-pub fn _run(s: String) -> Result<String, String> {
-    let access_token =
-        env::var("ACCESS_TOKEN").map_err(|_| "The ACCESS_TOKEN environment variable is not set")?;
+// fill real access token here
+// see: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+static TOKEN: &str = "******";
 
+pub fn _run(s: String) -> Result<String, String> {
     lazy_static! {
         static ref RE: Regex =
             Regex::new(r#"Signed-off-by: \w+ <[\w._%+-]+@[\w.-]+\.\w{2,4}>"#).unwrap();
@@ -26,7 +28,6 @@ pub fn _run(s: String) -> Result<String, String> {
 
     let pull = payload.get_pull_request()?;
 
-    // let commits = pull.commits_url;
     let repo = payload.get_repository()?;
     let commits_url = format!(
         "https://api.github.com/repos/{}/pulls/{}/commits",
@@ -37,18 +38,23 @@ pub fn _run(s: String) -> Result<String, String> {
 
     let mut writer = Vec::new();
 
-    let mut headers = Headers::new();
-    headers.insert("Accept", "application/vnd.github+json");
-    headers.insert("Authorization", &format!("Bearer {access_token}"));
-
     _ = Request::new(&uri)
-        .headers(headers)
+        .method(Method::GET)
+        .header("Accept", "application/vnd.github+json")
+        .header("User-Agent", "Github Connector of Second State Reactor")
+        .header("Authorization", &format!("Bearer {}", TOKEN))
         .send(&mut writer)
         .map_err(|e| format!("request failed: {}", e))?;
 
     let text = String::from_utf8_lossy(&writer);
-    let json: Vec<serde_json::Value> =
-        serde_json::from_str(&text).map_err(|_| "response parse error")?;
+    let json: Vec<serde_json::Value> = serde_json::from_str(&text).map_err(|e| {
+        format!(
+            "response parse error {} || {} || {}",
+            e.to_string(),
+            text,
+            commits_url
+        )
+    })?;
 
     let commits: Vec<&str> = json
         .iter()
