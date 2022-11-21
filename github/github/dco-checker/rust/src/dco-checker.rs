@@ -65,16 +65,18 @@ pub fn _run(s: String) -> Result<String, String> {
         .iter()
         .map(|c| {
             let msg = c.lines().last().unwrap_or_default();
-            if RE.is_match(msg) {
-                true
-            } else {
-                false
-            }
+            RE.is_match(msg)
         })
         .all(std::convert::identity);
 
+    let creator = &pull.user.login;
+    let at_creator = format!("@{} ", creator);
+
     let ob = outbound::modify_issue(pull.number);
 
-    ob.body(if is_dco_ok { "dco ok" } else { "dco wrong" })
+    let ok = "dco ok";
+    let no = "dco wrong";
+
+    ob.body(at_creator + (if is_dco_ok { ok } else { no }))
         .build()
 }
