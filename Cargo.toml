@@ -74,4 +74,6 @@ members = [
     "timer/sendgrid/timer-reminder-by-sendgrid/rust",
 
     "jira/slack/comment-notifier/rust",
+
+    "web_trigger/return_response/weather/rust",
 ]
