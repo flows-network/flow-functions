@@ -1,3 +1,6 @@
+# The function examples here are outdated and do not apply to flows.netwrok.
+
+
 # Functions in Rust and JavaScript for flows.network
 
 ![badge](https://github.com/second-state/flow-functions/workflows/build/badge.svg?style=flat-square)
