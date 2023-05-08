@@ -1,4 +1,4 @@
-# The function examples here are outdated and do not apply to flows.netwrok.
+# The function examples here are outdated and do not apply to flows.netwrok. Please check out https://github.com/flows-network/awesome-flow-functions
 
 
 # Functions in Rust and JavaScript for flows.network
